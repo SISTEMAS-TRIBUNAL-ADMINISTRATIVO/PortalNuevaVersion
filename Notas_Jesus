@@ -1,0 +1,35 @@
+http://localhost/PortalNuevaVersion/Recuperar-contrasena.php
+    - Olvidar contraseña no funciona
+
+--------------------------------------------------------------------------------------------
+
+Responsividad en la barra lateral de menu.
+
+--------------------------------------------------------------------------------------------
+
+Formatos del area de informatica
+- Sugerencia: Al agregar un formato, que solo pueda aceptar documentos
+
+- Bug: Cuando no se tiene seleccionado un formato y oprimimos el boton eliminar, arroja "Por favor, selecciona un curso para eliminar." pero arroja nuevamente el mensaje si se desea eliminar el formato y al oprimir "Eliminar formato" arroja el mensaje "Curso eliminado con éxito"
+
+--------------------------------------------------------------------------------------------
+
+Cursos
+- En el formulario de agregar un nuevo curso se mantiene la informacion anterior que se habia guardado
+
+- Sugerencia: No deberia subir archivos que no sean PDF 
+
+- Bug: Cuando no se tiene seleccionado un curso y oprimimos el boton eliminar, lanza mensaje de error que no se selecciono un curso, pero arroja nuevamente el mensaje si se desea eliminar el curso y al oprimir "Eliminar curso" arroja el mensaje que se elimino el curso.
+
+- Al igual que el boton editar presenta el mismo detalle, si arroja que no se selecciono el curso, pero abre la ventana de editar aun asi
+
+--------------------------------------------------------------------------------------------
+
+Declaraciones
+
+Corregir detalles de diseño el la barra lateral de menu
+- Portal de empleado, presenta errores, tanto de diseño como de logica
+- No existe un boton el cual nos permita regresar al inicio, se tiene que ir regresando hacia atras desde el navegador
+
+
+
