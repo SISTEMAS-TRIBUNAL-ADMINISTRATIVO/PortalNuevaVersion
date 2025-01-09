@@ -8,7 +8,7 @@ Responsividad en la barra lateral de menu.
 --------------------------------------------------------------------------------------------
 
 Formatos del area de informatica
-- Sugerencia: Al agregar un formato, que solo pueda aceptar documentos
+- Sugerencia: Al agregar un formato, que solo pueda aceptar documentos, Al buscar solo encuentra si se escribe en mayusculas
 
 - Bug: Cuando no se tiene seleccionado un formato y oprimimos el boton eliminar, arroja "Por favor, selecciona un curso para eliminar." pero arroja nuevamente el mensaje si se desea eliminar el formato y al oprimir "Eliminar formato" arroja el mensaje "Curso eliminado con éxito"
 
@@ -32,4 +32,10 @@ Corregir detalles de diseño el la barra lateral de menu
 - No existe un boton el cual nos permita regresar al inicio, se tiene que ir regresando hacia atras desde el navegador
 
 
+--------------------------------------------------------------------------------------------
+
+Ayuda y soporte
+
+Al cerrar la sesion en el Portal: http://localhost/PortalNuevaVersion/view/Home/home.php, y querer regresar arroja el error:
+Fatal error: Uncaught Error: Call to undefined method Conectar::ruta() in C:\laragon\www\PortalNuevaVersion\view\Home\home.php:71 Stack trace: #0 {main} thrown in C:\laragon\www\PortalNuevaVersion\view\Home\home.php on line 71
 
