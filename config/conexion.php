@@ -8,7 +8,7 @@
 class Conectar
 {
     protected $dbh;
-    protected $configMysql = "Produccion";
+    protected $configMysql = "Local";
     
     
     protected function Conexion($db)
