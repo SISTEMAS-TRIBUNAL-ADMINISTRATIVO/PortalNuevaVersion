@@ -44,7 +44,8 @@ switch ($_GET["opcion"])
             $datos = $Empleados->EmpleadoXid($_POST["id_empleado"]);
             $DatosDeRespuesta = array();
             
-            foreach ($datos as $resultado) {
+            foreach ($datos as $resultado) 
+            {
                 $DatosDeRespuesta["Plaza"] = $resultado["Plaza"];
                 $DatosDeRespuesta["Enlace"] = $resultado["Enlace"];
                 $DatosDeRespuesta["Empleado"] = $resultado["Empleado"];
