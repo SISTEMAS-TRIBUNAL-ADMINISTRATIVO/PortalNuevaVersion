@@ -39,6 +39,16 @@
                                 $_SESSION["url_declaracion"] = $resultado["url_declaracion"];
                                 $UrlAutorizacion = $conexion->rutaHelpdesk()."controller/autorizacionController.php?Session_start=".$_SESSION['Enlace'];
                                 $_SESSION["UrlAutorizacion"] = $UrlAutorizacion;
+
+                                if($resultado["fot_foto"] != null)
+                                {
+                                    $DatosDeRespuesta["FOTO"] = 'data:image/jpeg;base64,' . base64_encode($resultado["fot_foto"]);
+                                }
+                                else
+                                {
+                                    $DatosDeRespuesta["FOTO"] =;
+                                }
+                                
                             }
                             $DatosDeRespuesta["Validar"] = 1;
                         } else 
