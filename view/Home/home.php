@@ -5,7 +5,8 @@
   header("Expires: 0"); // Expiración inmediata
   require_once("../../config/conexion.php");
 
-  if (isset($_SESSION["Enlace"])) {
+  if (isset($_SESSION["Enlace"])) 
+  {
     
     require_once("../Head/head_meta.php");
 ?>

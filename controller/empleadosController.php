@@ -44,15 +44,15 @@ switch ($_GET["opcion"])
             $datos = $Empleados->EmpleadoXid($_POST["id_empleado"]);
             $DatosDeRespuesta = array();
             
-            foreach ($datos as $resultado) {
+            foreach ($datos as $resultado) 
+            {
                 $DatosDeRespuesta["Plaza"] = $resultado["Plaza"];
                 $DatosDeRespuesta["Enlace"] = $resultado["Enlace"];
                 $DatosDeRespuesta["Empleado"] = $resultado["Empleado"];
                 $DatosDeRespuesta["Categoria"] = $resultado["Categoria"];
-                $DatosDeRespuesta["AREA"] = $resultado["AREA"];
+                $DatosDeRespuesta["AREA"] = $resultado["AREA"];                
             }
             echo json_encode($DatosDeRespuesta);
             break;
-        
     }
 ?>

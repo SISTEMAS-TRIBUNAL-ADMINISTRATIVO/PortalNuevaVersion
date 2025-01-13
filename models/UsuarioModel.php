@@ -25,11 +25,13 @@
                 sistema,
                 alias,
                 IdPadreSistema,
-                url_declaracion
+                url_declaracion,
+                fot_foto
             FROM bd_seguridad_sistemas.cat_usuario
             INNER JOIN bd_seguridad_sistemas.pri_usuario_rol_sistema ON (pri_usuario_rol_sistema.fk_usuario = cat_usuario.id_usuario AND pri_usuario_rol_sistema.activo = 1)
             INNER JOIN bd_seguridad_sistemas.cat_sistema ON (pri_usuario_rol_sistema.fk_sistema = cat_sistema.id_sistema)
             INNER JOIN bd_seguridad_sistemas.cat_rol ON (pri_usuario_rol_sistema.fk_rol = cat_rol.id_rol)
+            inner join siga_administrativo.pri_foto on (siga_administrativo.pri_foto.fk_emp_empleado = bd_seguridad_sistemas.cat_usuario.enlace)
             WHERE email = ?
             AND password = ?
             AND cat_usuario.activo = 1
