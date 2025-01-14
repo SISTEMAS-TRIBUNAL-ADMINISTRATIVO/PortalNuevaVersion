@@ -11,9 +11,9 @@
             <!-- Foto, Nombre del usuario -->
             <div class="profile clearfix">
               <div class="profile_pic">
-              <img src="<?php echo $_SESSION["fotoBase64"]; ?>" alt="Foto de usuario"  width= 80px >
+              <img src="<?php echo $_SESSION["fotoBase64"]; ?>" alt="Foto de usuario" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin-left: 50px;">
               </div>
-              <div class="profile_info">
+              <div class="profile_info" style="margin-left: 5px; margin-top: -10px;">
                 <a href="" id="NombreLink">
                 <h2 id="Nombre1"><?php echo $_SESSION["nombre"]; ?></h2>
                 </a>
