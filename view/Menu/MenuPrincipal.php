@@ -11,7 +11,7 @@
             <!-- Foto, Nombre del usuario -->
             <div class="profile clearfix">
               <div class="profile_pic">
-              <img id="profile_img" src="<?php echo isset($_SESSION['FOTO']) ? $_SESSION['FOTO'] : '/ruta/a/imagen_predeterminada.jpg'; ?>" alt="Foto de perfil" class="img-circle profile_img">
+              <img src="<?php echo $_SESSION["fotoBase64"]; ?>" alt="Foto de usuario"  width= 80px >
               </div>
               <div class="profile_info">
                 <a href="" id="NombreLink">
