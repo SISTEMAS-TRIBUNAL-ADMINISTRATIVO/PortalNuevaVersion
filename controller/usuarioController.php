@@ -39,18 +39,6 @@
                                 $_SESSION["url_declaracion"] = $resultado["url_declaracion"];
                                 $UrlAutorizacion = $conexion->rutaHelpdesk()."controller/autorizacionController.php?Session_start=".$_SESSION['Enlace'];
                                 $_SESSION["UrlAutorizacion"] = $UrlAutorizacion;
-
-<<<<<<< HEAD
-                                if($resultado["fot_foto"] != null)
-                                {
-                                    $DatosDeRespuesta["FOTO"] = 'data:image/jpeg;base64,' . base64_encode($resultado["fot_foto"]);
-                                }
-                                else
-                                {
-                                    $DatosDeRespuesta["FOTO"] =;
-                                }
-                                
-=======
                                
                                 // Asegúrate de que $resultado está definido y contiene datos
                                     if (isset($resultado) && $resultado["fot_foto"] != null) {
@@ -60,9 +48,6 @@
                                         // Usar la imagen por defecto si no hay foto
                                         $_SESSION["fotoBase64"] = 'https://static.vecteezy.com/system/resources/previews/027/728/804/non_2x/faceless-businessman-user-profile-icon-business-leader-profile-picture-portrait-user-member-people-icon-in-flat-style-circle-button-with-avatar-photo-silhouette-free-png.png';
                                     }
-
-                               
->>>>>>> origin/ServicioSocial
                             }
                             $DatosDeRespuesta["Validar"] = 1;
                         } else 
