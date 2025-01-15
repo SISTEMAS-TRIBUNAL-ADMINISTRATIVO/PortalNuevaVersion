@@ -30,38 +30,77 @@
     </head>
 
     <div class="right_col" role="main">
-      <section>
-        <div class="row g-0">
-          <!-- Carrusel de imágenes (100% de la pantalla) -->
-          <div class="col-12 p-0">
-            <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
-              <div class="carousel-inner">
-                <div class="carousel-item active">
-                  <a href="https://tachiapas.gob.mx/capacitaciones/" target="_blank">
-                    <img src="../../public/images/anuncios/4.jpg" class="d-block w-100" alt="Imagen 1" style="height: 100vh; object-fit: cover;">
-                  </a>
-                </div>
-                <div class="carousel-item">
-                  <a href="https://tachiapas.gob.mx/comite-igualdad/" target="_blank">
-                    <img src="../../public/images/anuncios/5.jpg" class="d-block w-100" alt="Imagen 2" style="height: 100vh; object-fit: cover;">
-                  </a>
-                </div>
-              </div>
-              <!-- Botones de navegación -->
-              <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Regresar</span>
-              </button>
-              <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="visually-hidden">Siguiente</span>
-              </button>
+  <section>
+    <!-- Carrusel -->
+    <div class="row g-0">
+      <div class="col-12 p-0">
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <a href="https://tachiapas.gob.mx/capacitaciones/" target="_blank">
+                <img src="../../public/images/anuncios/4.jpg" class="d-block w-100" alt="Imagen 1" style="height: 45vh; object-fit: cover;">
+              </a>
+            </div>
+            <div class="carousel-item">
+              <a href="https://tachiapas.gob.mx/comite-igualdad/" target="_blank">
+                <img src="../../public/images/anuncios/5.jpg" class="d-block w-100" alt="Imagen 2" style="height: 45vh; object-fit: cover;">
+              </a>
             </div>
           </div>
-
+          <!-- Botones de navegación -->
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Regresar</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Siguiente</span>
+          </button>
         </div>
-      </section>
+      </div>
+    </div>
+  </section>
 
+  <!-- Contenedor de las cartas -->
+  <div class="d-flex align-items-center justify-content-center" style="height: 45vh;">
+    <div class="row g-3">
+      <div class="col-md-4">
+        <div class="card" style="width: 18rem;">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card" style="width: 18rem;">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card" style="width: 18rem;">
+          <img src="..." class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  </div>
+  
     <?php
       require_once("../Footer/footer.php");
       require_once("../Footer/footer_script.php");

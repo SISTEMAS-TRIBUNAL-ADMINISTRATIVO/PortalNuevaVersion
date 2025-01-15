@@ -31,7 +31,11 @@
             INNER JOIN bd_seguridad_sistemas.pri_usuario_rol_sistema ON (pri_usuario_rol_sistema.fk_usuario = cat_usuario.id_usuario AND pri_usuario_rol_sistema.activo = 1)
             INNER JOIN bd_seguridad_sistemas.cat_sistema ON (pri_usuario_rol_sistema.fk_sistema = cat_sistema.id_sistema)
             INNER JOIN bd_seguridad_sistemas.cat_rol ON (pri_usuario_rol_sistema.fk_rol = cat_rol.id_rol)
+<<<<<<< HEAD
             inner join siga_administrativo.pri_foto on (siga_administrativo.pri_foto.fk_emp_empleado = bd_seguridad_sistemas.cat_usuario.enlace)
+=======
+            INNER JOIN siga_administrativo.pri_foto ON (siga_administrativo.pri_foto.fk_emp_empleado = bd_seguridad_sistemas.cat_usuario.enlace)
+>>>>>>> origin/ServicioSocial
             WHERE email = ?
             AND password = ?
             AND cat_usuario.activo = 1
