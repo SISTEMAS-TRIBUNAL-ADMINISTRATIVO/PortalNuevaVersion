@@ -1,7 +1,3 @@
-SET NAMES utf8mb4;
-SET COLLATION_CONNECTION = 'utf8mb4_spanish2_ci';
-
-
 ALTER TABLE cat_permiso
     DROP COLUMN descripcion,
     DROP COLUMN activo_permiso;

@@ -1,6 +1,3 @@
-SET NAMES utf8mb4;
-SET COLLATION_CONNECTION = 'utf8mb4_spanish2_ci';
-
 CREATE TABLE cat_formatos_informatica_tapje 
 (
     id_formato int(10) NOT NULL AUTO_INCREMENT,

@@ -39,31 +39,6 @@ class Conectar
                         break;
                 }
             } 
-            else if($this->configMysql == "Prueba")
-            {
-                switch ($db) 
-                {
-                    case "seguridad":
-                        $this->dbh = new PDO("mysql:host=192.168.1.155;dbname=bd_seguridad_sistemas", "root", "Chiapas2021TA");
-                        break;
-
-                    case "helpdesk":
-                        $this->dbh = new PDO("mysql:host=192.168.1.155;dbname=andercode_helpdesk", "root", "Chiapas2021TA");
-                        break;
-
-                    case "siai":
-                        $this->dbh = new PDO("mysql:host=192.168.1.155;dbname=siai", "root", "Chiapas2021TA");
-                        break;
-
-                    case "siga":
-                        $this->dbh = new PDO("mysql:host=192.168.1.155;dbname=siga_administrativo", "root", "Chiapas2021TA");
-                        break;
-
-                    case "portal_empleado":
-                        $this->dbh = new PDO("mysql:host=192.168.1.155;dbname=portal_empleado", "root", "Chiapas2021TA");
-                        break;
-                }
-            }
             else if($this->configMysql == "Produccion")
             {
                 switch ($db) 
@@ -82,6 +57,10 @@ class Conectar
 
                     case "siga":
                         $this->dbh = new PDO("mysql:host=192.168.1.224;dbname=siga_administrativo", "siga", 'siga&%$admvo01');
+                        break;
+                    
+                        case "portal_empleado":
+                        $this->dbh = new PDO("mysql:host=192.168.1.224;dbname=portal_empleado", "siga", 'siga&%$admvo01');
                         break;
                 }
             }
@@ -108,10 +87,6 @@ class Conectar
                     return "http://localhost/HelpDesk/";
             break;
 
-            case "Prueba":
-                    return "http://192.168.1.121/HelpDesk/";
-            break;
-
             case "Produccion":
                     return "http://192.168.1.121/HelpDesk/";
             break;
@@ -127,13 +102,31 @@ class Conectar
                     return "http://localhost/PortalNuevaVersion/";
             break;
 
-            case "Prueba":
-                    return "http://192.168.1.121/PortalNuevaVersion/";
-            break;
-
             case "Produccion":
                     return "http://192.168.1.121/PortalNuevaVersion/";
             break;
+        }
+    }
+
+    public function Migraciones()
+    {
+        switch ($this->configMysql) 
+        {
+            case "Local":
+                return [
+                    "dsn" => "mysql:host=localhost;dbname=portal_empleado;charset=utf8mb4",
+                    "user" => "root",
+                    "password" => ""
+                ];
+                break;
+
+            case "Produccion":
+                return [
+                    "dsn" => "mysql:host=192.168.1.224;dbname=portal_empleado;charset=utf8mb4",
+                    "user" => "siga",
+                    "password" => 'siga&%$admvo01'
+                ];
+                break;
         }
     }
 }

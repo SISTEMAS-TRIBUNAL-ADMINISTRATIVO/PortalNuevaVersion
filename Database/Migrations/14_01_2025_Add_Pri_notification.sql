@@ -1,6 +1,3 @@
-SET NAMES utf8mb4;
-SET COLLATION_CONNECTION = 'utf8mb4_spanish2_ci';
-
 CREATE TABLE pri_notificacion 
 (
     idnotificacion INT(10) AUTO_INCREMENT PRIMARY KEY,
