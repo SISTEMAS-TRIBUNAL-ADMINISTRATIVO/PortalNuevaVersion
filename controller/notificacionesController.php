@@ -1,40 +1,36 @@
 <?php
     session_start();
     require_once("../config/conexion.php");
-    require_once("../models/NotificacionModel.php");
+    require_once("../models/NotificacionesModel.php");
 
     $Notificacion = new Notificacion();
+    $html = '';
     header('Content-Type: application/json');
 
-switch ($_GET["opcion"]) 
-    {
-        case "TodasNotificaciones":
-            $datos = $Notificacion->LlamarNotificacion();
-            $data = array();
 
-            foreach ($datos as $resultado) {
-                $DatosDeRespuesta = array();
-                $DatosDeRespuesta[] = $resultado["idnotificacion"];
-                $DatosDeRespuesta[] = $resultado["Mensaje"];
-                $DatosDeRespuesta[] = $resultado["TipoNotificacion"];
-                $DatosDeRespuesta[] = $resultado["UsuarioNotificado"];
-                $DatosDeRespuesta[] = $resultado["Area"];
-                $DatosDeRespuesta[] = $resultado["Fecha"];
-                $DatosDeRespuesta[] = '<button type="button" onClick="ver('.$resultado["idnotificacion"].');" id="'.$resultado["idnotificacion"].'" class="btn btn-link btn-inline ladda-button"><i class="fa fa-eye">Ver</i></button>';
-                $data[] = $DatosDeRespuesta;
-            }
+    switch ($_GET["opcion"]) 
+        {
+            case "TodasNotificaciones":
 
-            $results = array
-            (
-                "sEcho" => 1,
-                "iTotalRecords" => count($data),
-                "iTotalDisplayRecords" => count($data),
-                "aaData" => $data
-            );
+                $datos = $Notificacion->LlamarNotificacion(11,$_SESSION['Enlace']);
 
-            echo json_encode($results);
-        
-        break;
-        
-    }
+                foreach ($datos as $resultado) 
+                {
+                    $html.="    <div class='col-md-4'>
+                                    <div class='card' style='width: 18rem;'>
+                                    <img src='' class='card-img-top' alt='...'>
+                                    <div class='card-body'>
+                                        <h5 class='card-title'>".$resultado['TipoNotificacion']."</h5>
+                                        <p class='card-text'>".$resultado['Mensaje']."</p>
+                                        <a href='#' class='btn btn-primary'>Ver más información</a>
+                                    </div>
+                                    </div>
+                                </div>";
+
+                    echo $html;
+                }
+            
+            break;
+        }
 ?>
+

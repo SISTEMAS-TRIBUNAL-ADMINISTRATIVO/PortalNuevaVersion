@@ -1,15 +1,15 @@
-ALTER TABLE cat_permiso
+ALTER TABLE bd_seguridad_sistemas.cat_permiso
     DROP COLUMN descripcion,
     DROP COLUMN activo_permiso;
 
 
-ALTER TABLE cat_permiso 
+ALTER TABLE bd_seguridad_sistemas.cat_permiso 
     ADD COLUMN permiso_padre INT(10) DEFAULT 0,
     ADD COLUMN url_permiso VARCHAR(100) DEFAULT NULL,
     ADD COLUMN icon VARCHAR(100) DEFAULT NULL;
 
 
-INSERT INTO cat_permiso
+INSERT INTO bd_seguridad_sistemas.cat_permiso
     (permiso, permiso_padre, url_permiso,icon)
 VALUES
     ('Resguardos', 0, '',''),
@@ -35,7 +35,7 @@ VALUES
     ('Informática', 0, '',''),
     ('Ip equipos informaticos', 45, '','');
 
-INSERT INTO pri_sistema_rol_permiso
+INSERT INTO bd_seguridad_sistemas.pri_sistema_rol_permiso
     (fk_sistema, fk_rol, fk_permiso)
 VALUES
     (2, 4, 10),

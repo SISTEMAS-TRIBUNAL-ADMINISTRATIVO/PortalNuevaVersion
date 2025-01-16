@@ -1,4 +1,4 @@
-INSERT INTO pri_sistema_rol_permiso
+INSERT INTO bd_seguridad_sistemas.pri_sistema_rol_permiso
     (fk_sistema, fk_rol, fk_permiso)
 VALUES
 -- ) USUARIO
