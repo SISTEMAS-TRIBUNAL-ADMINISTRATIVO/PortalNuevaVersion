@@ -12,14 +12,13 @@ switch ($_GET["opcion"]) {
         $datos = $Notificacion->LlamarNotificacion(11, $_SESSION['Enlace']);
 
         foreach ($datos as $resultado) {
-            $Foto = 'data:image/jpeg;base64,' . base64_encode($resultado["Imagen"]);
+           // $Foto = 'data:image/jpeg;base64,' . base64_encode($resultado["imagen_notificacion"]);
 
             $html .= "<div class='col-md-4'>
                         <div class='card' style='width: 18rem;'>
-                            <img src='" . $Foto . "' class='card-img-top' alt='...'>
                             <div class='card-body'>
-                                <h5 class='card-title'>" . $resultado['TipoNotificacion'] . "</h5>
-                                <p class='card-text'>" . $resultado['Mensaje'] . "</p>
+                                <h5 class='card-title'>" . $resultado['Titulo_notificacion'] . "</h5>
+                                <p class='card-text'>" . $resultado['mensaje_corto_notificacion'] . "</p>
                                 <a href='#' class='btn btn-primary'>Ver más información</a>
                             </div>
                         </div>

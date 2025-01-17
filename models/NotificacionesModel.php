@@ -11,60 +11,33 @@
 
             // Definir consulta SQL
             $sql = "
-                   SELECT 
-                        idnotificacion,
-                        mensaje_notificacion AS Mensaje,
-                        imagen_notificacion AS Imagen,
-                        fk_usuario_se_notifica AS UsuarioNotificado,
-                        fk_area AS AREA,
-                        fecha_notificacion AS Fecha,
-                        Nombre_notificcion AS TipoNotificacion
+                   SELECT *
                     FROM pri_notificacion
                     INNER JOIN cat_tipo_notificacion ON fk_tipo_notificacion = idtiponotificacion
                     WHERE fk_tipo_notificacion=1
                     AND estado_notificacion=1
                 UNION
-                    SELECT 
-                        idnotificacion,
-                        mensaje_notificacion AS Mensaje,
-                        imagen_notificacion AS Imagen,
-                        fk_usuario_se_notifica AS UsuarioNotificado,
-                        fk_area AS AREA,
-                        fecha_notificacion AS Fecha,
-                        Nombre_notificcion AS TipoNotificacion
+                    SELECT *
                     FROM pri_notificacion
                     INNER JOIN cat_tipo_notificacion ON fk_tipo_notificacion = idtiponotificacion
                     WHERE fk_tipo_notificacion= 2
                     AND fk_area=?
                     AND estado_notificacion=1
                 UNION 
-                    SELECT 
-                        idnotificacion,
-                        mensaje_notificacion AS Mensaje,
-                        imagen_notificacion AS Imagen,
-                        fk_usuario_se_notifica AS UsuarioNotificado,
-                        fk_area AS AREA,
-                        fecha_notificacion AS Fecha,
-                        Nombre_notificcion AS TipoNotificacion
+                    SELECT *
                     FROM pri_notificacion
                     INNER JOIN cat_tipo_notificacion ON fk_tipo_notificacion = idtiponotificacion
                     WHERE fk_tipo_notificacion=3
                     AND fk_usuario_se_notifica=?
                     AND estado_notificacion=1
                  UNION 
-                    SELECT 
-                        idnotificacion,
-                        mensaje_notificacion AS Mensaje,
-                        imagen_notificacion AS Imagen,
-                        fk_usuario_se_notifica AS UsuarioNotificado,
-                        fk_area AS AREA,
-                        fecha_notificacion AS Fecha,
-                        Nombre_notificcion AS TipoNotificacion
+                    SELECT *
                     FROM pri_notificacion
                     INNER JOIN cat_tipo_notificacion ON fk_tipo_notificacion = idtiponotificacion
                     WHERE fk_tipo_notificacion=4
                     AND fk_usuario_se_notifica=?
-                    AND estado_notificacion=1";
+                    AND estado_notificacion=1
+                ORDER BY idnotificacion DESC";
 
             // Preparar y ejecutar la consulta
             $stmt = $conectar->prepare($sql);
