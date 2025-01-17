@@ -5,8 +5,6 @@
 
     $Notificacion = new Notificacion();
     $html = '';
-    header('Content-Type: application/json');
-
 
     switch ($_GET["opcion"]) 
         {
@@ -16,9 +14,11 @@
 
                 foreach ($datos as $resultado) 
                 {
+                    $Foto = 'data:image/jpeg;base64,' . base64_encode($resultado["Imagen"]);
+
                     $html.="    <div class='col-md-4'>
                                     <div class='card' style='width: 18rem;'>
-                                    <img src='' class='card-img-top' alt='...'>
+                                    <img src='". $Foto ."' class='card-img-top' alt='...'>
                                     <div class='card-body'>
                                         <h5 class='card-title'>".$resultado['TipoNotificacion']."</h5>
                                         <p class='card-text'>".$resultado['Mensaje']."</p>
