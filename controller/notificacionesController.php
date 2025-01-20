@@ -12,15 +12,17 @@ switch ($_GET["opcion"]) {
         $datos = $Notificacion->LlamarNotificacion(11, $_SESSION['Enlace']);
 
         foreach ($datos as $resultado) {
-           // $Foto = 'data:image/jpeg;base64,' . base64_encode($resultado["imagen_notificacion"]);
+            // Determina la URL del enlace dinámicamente
+            $link = !empty($resultado['url_destino']) ? $resultado['url_destino'] : '#';
 
-            $html .= "<div class='col-md-4'>
-                        <div class='card' style='width: 18rem;'>
-                            <div class='card-body'>
-                                <h5 class='card-title'>" . $resultado['Titulo_notificacion'] . "</h5>
-                                <p class='card-text'>" . $resultado['mensaje_corto_notificacion'] . "</p>
-                                <a href='#' class='btn btn-primary'>Ver más información</a>
-                            </div>
+            $html .= "<div class='card text-center'>
+                        <div class='' style='color: black; font-size:15px;'>Notificación</div>
+                        <div class='card-body'>
+                            <h5 class='card-title'>" . $resultado['Titulo_notificacion'] . "</h5>
+                            <a href='" . $link . "' class='card-text' target='_blank'>" . $resultado['mensaje_corto_notificacion'] . "</a>
+                        </div>
+                        <div class='card-footer text-muted' style='background-color: yellow;'>
+                            2 days ago
                         </div>
                     </div>";
         }
@@ -30,3 +32,8 @@ switch ($_GET["opcion"]) {
         break;
 }
 ?>
+
+
+
+  
+   

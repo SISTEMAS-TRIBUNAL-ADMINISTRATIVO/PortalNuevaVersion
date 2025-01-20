@@ -61,7 +61,11 @@
         </div>
       </section>
   
+      <div class="division">
+        
+      <p>AVISOS</p>
 
+      </div>
       <!-- Contenedor de las cartas -->
    
       <div class="d-flex align-items-center justify-content-center" style="height: 45vh;">
@@ -93,6 +97,19 @@
   ?>  
 
   <style>
+    .division{
+      margin-top: 10px;
+  background-color: green;
+  color: black;
+  font-size: 30px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 50px; /* Ajusta esta altura según tus necesidades */
+    }
+    
     section{
       position: relative;
     }
