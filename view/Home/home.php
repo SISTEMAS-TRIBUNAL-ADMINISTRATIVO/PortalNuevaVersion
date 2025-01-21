@@ -61,11 +61,6 @@
         </div>
       </section>
   
-      <div class="division">
-        
-      <p>AVISOS</p>
-
-      </div>
       <!-- Contenedor de las cartas -->
    
       <div class="d-flex align-items-center justify-content-center" style="height: 45vh;">
@@ -73,7 +68,7 @@
       </div>
   
 
-    </div>
+    
 
 
   
@@ -95,20 +90,9 @@
     }
     
   ?>  
-
+</div>
   <style>
-    .division{
-      margin-top: 10px;
-  background-color: green;
-  color: black;
-  font-size: 30px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  height: 50px; /* Ajusta esta altura según tus necesidades */
-    }
+    
     
     section{
       position: relative;
@@ -155,12 +139,13 @@
   overflow: hidden;
 }
 /* Imagen dentro de las tarjetas con un aspecto fijo */
-.card img {
-  width: 100%;
-  height: 150px; /* Establece la altura fija de la imagen */
-  object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 15px;
+.card-img-top{
+  width: 150px; 
+  max-width: 300px; 
+  height: 200px; 
+  object-fit: cover; 
+  margin: 0 auto;>
+ 
 }
 
 /* Efecto hover para las cartas */
@@ -184,6 +169,12 @@
   overflow: hidden;
 }
 
+.card-footer{
+  background-color: #2A3F54; 
+}
+
+
+
 /* Estilo de la barra de desplazamiento */
 #Contenedor_Notificaciones::-webkit-scrollbar {
   width: 8px;
@@ -196,7 +187,6 @@
 
 /* El footer se mantiene en la parte inferior */
 footer {
-  margin-top: 10px;
   flex-shrink: 0;
   text-align: center;
   padding: 1rem;
