@@ -75,6 +75,7 @@
     <?php
       require_once("../Footer/footer.php");
       require_once("../Footer/footer_script.php");
+      require_once("ModalHome.php");
     ?>
     
     <script type="text/javascript" src="home.js" ></script>
