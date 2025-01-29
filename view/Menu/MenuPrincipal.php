@@ -105,6 +105,14 @@
                       <li><a href="../FichasTecnicas/Fichastecnicas.php">Fichas tecnicas</a></li>
                     </ul>
                   </li>
+
+                  <li><a><i class="fa fa-desktop"></i> Avisos <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="../Avisos/administrador_avisos.php">Administrar Avisos</a></li>
+                      <li><a href="../Avisos/agregar_notificacion.php">Agregar Avisos</a></li>
+                    </ul>
+                  </li>
+
                   <!-- <li><a><i class="fa fa-bell-o"></i> Catalogos<span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                         <li><a href="#level1_1">Level One</a>

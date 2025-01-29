@@ -74,7 +74,7 @@ switch ($_GET["opcion"])
                     {
                         $DatosDeRespuesta["MostrarModal"] = "NO";
                     }
-                }
+                }   
                 else
                 {
                     $DatosDeRespuesta["MostrarModal"] = "SI";

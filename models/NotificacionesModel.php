@@ -54,7 +54,7 @@
             parent::set_names();
             $FechaDeHoy = date('Y-m-d');
 
-            // Definir consulta SQL
+            // Definir consulta SQLñ
             $sql = "SELECT *
                     FROM pri_notificacion
                     INNER JOIN cat_tipo_notificacion ON fk_tipo_notificacion = idtiponotificacion
