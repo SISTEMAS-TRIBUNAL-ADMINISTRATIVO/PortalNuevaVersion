@@ -177,6 +177,7 @@ if (isset($_SESSION["Enlace"]))
     require_once("../Footer/footer_script.php");
     require_once("../Footer/footerDataTable.php");
 ?>
+<script type="text/javascript" src="../Nomina/nomina.js"></script>
     </body>
 </html>
 <?php
