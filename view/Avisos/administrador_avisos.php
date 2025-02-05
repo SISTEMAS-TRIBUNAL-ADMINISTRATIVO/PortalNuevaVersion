@@ -39,10 +39,7 @@ if (isset($_SESSION["Enlace"]))
           <div class="row">
             <div class="col-md-6">
               <label for="tipo_notificacion">Tipo de notificación:</label>
-              <select class="form-control" id="tipo_notificacion">
-                <option value="">Seleccione...</option>
-                <option value="opcion1">Opción 1</option>
-                <option value="opcion2">Opción 2</option>
+              <select class="form-control" id="tipo_notificacion" name="tipo_notificacion">
               </select>
             </div>
             <div class="col-md-6">
@@ -127,15 +124,15 @@ if (isset($_SESSION["Enlace"]))
 
         <div class="col-md-12 col-sm-12">
             <div class="table-responsive">
-                <table class="table table-striped jambo_table bulk_action" id="tablanominas">
+                <table class="table table-striped jambo_table bulk_action" id="TablaAvisos">
                     <thead>
                         <tr>
                             <th>tipo de notoficacion</th>
                             <th>titulo de la notificacion</th>
+                            <th>mensaje</th>
                             <th>fecha de creacion</th>
                             <th>estado</th>
                             <th>vigencia</th>
-                            <th>acciones</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -177,7 +174,7 @@ if (isset($_SESSION["Enlace"]))
     require_once("../Footer/footer_script.php");
     require_once("../Footer/footerDataTable.php");
 ?>
-<script type="text/javascript" src="../Nomina/nomina.js"></script>
+<script type="text/javascript" src="../Avisos/administrador_avisos.js"></script>
     </body>
 </html>
 <?php

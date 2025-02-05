@@ -37,6 +37,7 @@
                                 $_SESSION["alias"] = $resultado["alias"];
                                 $_SESSION["IdPadreSistema"] = $resultado["IdPadreSistema"];
                                 $_SESSION["url_declaracion"] = $resultado["url_declaracion"];
+                                $_SESSION["fk_area_ubicacion "] = $resultado["fk_area_ubicacion"];
                                 $UrlAutorizacion = $conexion->rutaHelpdesk()."controller/autorizacionController.php?Session_start=".$_SESSION['Enlace'];
                                 $_SESSION["UrlAutorizacion"] = $UrlAutorizacion;
                                

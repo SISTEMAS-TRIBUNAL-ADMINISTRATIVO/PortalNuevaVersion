@@ -26,7 +26,8 @@
                 alias,
                 IdPadreSistema,
                 url_declaracion,
-                fot_foto
+                fot_foto,
+                fk_area_ubicacion
             FROM bd_seguridad_sistemas.cat_usuario
             INNER JOIN bd_seguridad_sistemas.pri_usuario_rol_sistema ON (pri_usuario_rol_sistema.fk_usuario = cat_usuario.id_usuario AND pri_usuario_rol_sistema.activo = 1)
             INNER JOIN bd_seguridad_sistemas.cat_sistema ON (pri_usuario_rol_sistema.fk_sistema = cat_sistema.id_sistema)
