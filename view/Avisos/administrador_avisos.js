@@ -28,20 +28,22 @@ function init() {
             // ... other language settings
         }
     });
-
-
-    $.post("../../controller/avisosController.php?opcion=ComboBoxTipoAviso",function(data, status)
-    {
-        $('#tipo_notificacion').html(data);
-    });
-    
-
-    
-    
 }
 
-$(document).ready(function() {
+$(document).ready(function() 
+{
     init();
 });
+
+$(document).on("click","#BtnModal", function()
+{ 
+    $.post("../../controller/avisosController.php?opcion=ComboBoxTipoAviso",function(data)
+    {
+        $('#tipo_notificacion').html(data);
+        $('#ModalAgregarAviso').modal('show');
+    });
+
+});
+
 
 
