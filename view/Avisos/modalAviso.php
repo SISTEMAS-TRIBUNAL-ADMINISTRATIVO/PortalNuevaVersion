@@ -32,7 +32,7 @@
           <div class="row mt-3">
             <div class="col-md-6">
               <label for="mensaje_corto">Mensaje Corto:</label>
-              <textarea class="form-control" id="mensaje_corto" rows="3"></textarea>
+              <textarea class="form-control" id="mensaje_corto" rows="3"></textarea>    
             </div>
             <div class="col-md-6">
               <label for="detalles">Detalles:</label>

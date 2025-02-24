@@ -20,12 +20,11 @@ if (isset($_SESSION["Enlace"]))
         </div>
                 
         <!-- Botón para abrir el modal -->
-<button type="button" class="btn1 btn-primary" id="BtnModal" name="BtnModal">
-  Agregar Aviso
-</button>
+        <button type="button" class="btn1 btn-primary" id="BtnModal" name="BtnModal" 
+                data-bs-toggle="modal" data-bs-target="#ModalAgregarAviso">
+        Agregar Aviso
+        </button>
     
-
-
         <div class="col-md-12 col-sm-12">
             <div class="table-responsive">
                 <table class="table table-striped jambo_table bulk_action" id="TablaAvisos">
