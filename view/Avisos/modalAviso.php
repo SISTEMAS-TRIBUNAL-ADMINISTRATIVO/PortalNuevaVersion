@@ -20,7 +20,7 @@
           <div class="row">
             <div class="col-md-6">
               <label for="tipo_notificacion">Tipo de notificación:</label>
-              <select class="form-control" id="tipo_notificacion" name="tipo_notificacion">
+              <select class="form-control" id="tipo_notificacion"  name="tipo_notificacion" >
               </select>
             </div>
             <div class="col-md-6">
@@ -74,13 +74,16 @@
             </div>
           </div>
 
-          <div class="row mt-3">
-            <div class="col-md-6 text-center">
-              <label>Imagen:</label>
-              <div class="border p-2">
-                <img src="../../public/images/images.png" alt="Vista previa" class="img-fluid">
-              </div>
-              <button type="button" class="btn btn-outline-success mt-2">Seleccionar</button>
+              <div class="row mt-3">
+          <div class="col-md-6 text-center">
+            <label>Imagen:</label>
+            <div class="border p-2">
+              <img id="preview-image" src="../../public/images/images.png" alt="Vista previa" class="img-fluid">
+            </div>
+            <input type="file" id="file-input" class="form-control mt-2" accept="image/*" onchange="loadImage(event)" style="display:none;">
+            <button type="button" class="btn btn-success mt-2" onclick="document.getElementById('file-input').click();">
+              Seleccionar Imagen
+            </button>
             </div>
           </div>
         </form>
@@ -92,5 +95,4 @@
     </div>
   </div>
 </div>
-
 

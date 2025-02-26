@@ -38,7 +38,6 @@ if (isset($_SESSION["Enlace"]))
                             <th>vigencia</th>
                         </tr>
                     </thead>
-                    <tbody></tbody>
                 </table>
             </div>
         </div> <!-- Fin de col-md-12 -->
@@ -50,8 +49,9 @@ if (isset($_SESSION["Enlace"]))
     require_once("../Footer/footer.php");
     require_once("../Footer/footer_script.php");
     require_once("../Footer/footerDataTable.php");
-
     require_once("modalAviso.php"); 
+
+    
 ?>
 <script type="text/javascript" src="../Avisos/administrador_avisos.js"></script>
     </body>
