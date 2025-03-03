@@ -46,18 +46,29 @@ class Avisos extends Conectar
     {
         // Crear conexión a la base de datos
         $conectar = parent::conexion("portal_empleado");
+        if (!$conectar) {
+            die("Error al conectar a la base de datos");
+        }
         parent::set_names();
-
+    
         // Definir consulta SQL
-        $sql = " SELECT * 
-	            FROM cat_tipo_notificacion";
-
+        $sql = "SELECT * FROM cat_tipo_notificacion";
+    
         // Preparar y ejecutar la consulta
         $stmt = $conectar->prepare($sql);
+        if (!$stmt) {
+            die("Error al preparar la consulta");
+        }
         $stmt->execute();
-
+    
         // Obtener resultados
         $resultado = $stmt->fetchAll();
+    
+        // Depuración: Verifica los datos obtenidos
+        echo "<pre>";
+        print_r($resultado);
+        echo "</pre>";
+    
         return $resultado;
     }
 }
