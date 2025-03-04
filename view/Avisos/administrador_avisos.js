@@ -1,4 +1,5 @@
 function init() {
+    // Inicializar DataTable
     tabla = $('#TablaAvisos').DataTable({
         "aProcessing": true,
         "aServerSide": true,
@@ -15,6 +16,7 @@ function init() {
                 console.log(e.responseText);
             }
         },
+        "bDestroy": true,
         "responsive": true,
         "bInfo": true,
         "iDisplayLength": 9,
@@ -29,69 +31,54 @@ $(document).ready(function() {
     init();
 });
 
+
 $(document).on("click", "#BtnModal", function() {
-    console.log("Botón #BtnModal clickeado"); // Depuración
     $.post("../../controller/avisosController.php?opcion=ComboBoxTipoAviso", function(data) {
-        console.log("Respuesta del servidor:", data); // Depuración
-        if (data) {
-            console.log("Mostrando modal y llenando combo box"); // Depuración
-            $('#ModalAgregarAviso').modal('show');
-            $('#tipo_notificacion').html(data);
-        } else {
-            console.error("No se recibieron datos válidos para el combo box."); // Depuración
-        }
-    }).fail(function(jqXHR, textStatus, errorThrown) {
-        console.error("Error en la solicitud:", textStatus, errorThrown); // Depuración
+        console.log("Respuesta del servidor:", data);
+        $('#tipo_notificacion').empty().append(data);
+        $('#ModalAgregarAviso').modal('show');
     });
 });
 
-$(document).on("click", "#guardarAviso", function() {
-    const tipoAviso = $("#tipo_notificacion").val();
 
-    if (!tipoAviso) {
-        alert("Por favor, selecciona un tipo de aviso.");
-        return;
-    }
+
+// Evento para guardar un nuevo aviso (si lo necesitas)
+$(document).on("click", "#guardarAviso", function() {
+    var tipoAviso = $("#tipo_notificacion").val();
 
     $.post("../../controller/avisosController.php?opcion=GuardarAviso", { tipo: tipoAviso }, function(response) {
         alert("Aviso guardado correctamente");
         $('#ModalAgregarAviso').modal('hide');
         tabla.ajax.reload(); // Recargar DataTable
-    }).fail(function(jqXHR, textStatus, errorThrown) {
-        console.error("Error al guardar el aviso:", textStatus, errorThrown);
-        alert("Hubo un error al guardar el aviso. Por favor, inténtalo de nuevo.");
     });
 });
 
 function loadImage(event) {
     const file = event.target.files[0];
-    const preview = document.getElementById('preview-image');
-
-    if (!preview) {
-        console.error('El elemento #preview-image no existe en el DOM.');
-        return;
-    }
-
+    
+    // Verifica que se haya seleccionado un archivo
     if (!file) {
-        console.log('No se seleccionó ningún archivo.');
-        return;
+      console.log('No se seleccionó ningún archivo.');
+      return;
     }
 
+    // Verifica si el archivo es una imagen
     if (!file.type.startsWith('image/')) {
-        console.log('El archivo seleccionado no es una imagen.');
-        return;
+      console.log('El archivo seleccionado no es una imagen.');
+      return;
     }
 
+    const preview = document.getElementById('preview-image');
     const reader = new FileReader();
 
     reader.onload = function(e) {
-        console.log('Imagen cargada correctamente.');
-        preview.src = e.target.result;  // Establece la imagen cargada
+      console.log('Imagen cargada correctamente.');
+      preview.src = e.target.result;  // Establece la imagen cargada
     };
 
     reader.onerror = function() {
-        console.log('Hubo un error al leer el archivo.');
+      console.log('Hubo un error al leer el archivo.');
     };
 
     reader.readAsDataURL(file); // Lee el archivo como URL de datos
-}
+}        
