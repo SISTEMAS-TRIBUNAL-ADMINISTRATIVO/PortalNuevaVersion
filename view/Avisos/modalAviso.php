@@ -21,8 +21,7 @@
             <div class="col-md-6">
               <label for="tipo_notificacion">Tipo de notificación:</label>
               <select class="form-control" id="tipo_notificacion"  name="tipo_notificacion" >
-                      
-                    
+                        
               </select>
             </div>
             <div class="col-md-6">

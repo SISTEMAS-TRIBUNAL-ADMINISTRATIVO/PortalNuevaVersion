@@ -58,15 +58,18 @@ switch ($_GET["opcion"])
 
     case "ComboBoxTipoAviso":
         $datos = $Avisos->ObtenerTipoDeAvisos();
-
-        if(is_array($datos)==true and count($datos)>0){
-            foreach($datos as $row)
-            {
-                $html.= "<option value='".$row['idtiponotificacion']."'>".$row['Nombre_notificcion']."</option>";
+    
+        if (is_array($datos) && count($datos) > 0) {
+            foreach ($datos as $row) {
+                $html .= "<option value='" . htmlspecialchars($row['idtiponotificacion']) . "'>" . htmlspecialchars($row['Nombre_notificcion']) . "</option>";
             }
-            echo $html;
-        }    
-    break;
+        } else {
+            $html = "<option value=''>No hay opciones disponibles</option>";
+        }
+        
+        echo json_encode($html);
+        break;
+    
 }
     
 ?>
