@@ -1,0 +1,35 @@
+    body {
+        background-color: #f4f6f9;
+        font-family: 'Segoe UI', sans-serif;
+    }
+
+            .login-card {
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 450px;
+            color: #000;
+        }
+        .login-card img {
+            max-height: 90px;
+        }
+        .title {
+            color: #061e3c; /* Azul institucional TJA */
+            font-weight: bold;
+            font-size: 24px;
+            margin-top: 15px;
+        }
+        .sub-title {
+            color: #c41c64; /* Rosa del lema institucional */
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .btn-primary {
+            background-color: #c41c64;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #a61853;
+        }

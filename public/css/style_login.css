@@ -1,47 +1,44 @@
-/*body{
-    /*background-color: #692E42;*/
-    /*background-color: #b59769;*/
-    /*background-color: rgba(241, 243, 244, 1);
-    }*/
-
-    .card{
-        width: 400px;
-        min-width: 380px;
-        max-width: 380px;
-        max-height: 500px;
-    }
-
-    .containerheight{
-        height:700px;
-        /*max-height: 750px;*/
-    }
-    .social_icon span{
-        font-size: 30;
-        color: #b59769;
+body {
+            background: linear-gradient(to right, #061e3c, #0b2c5e); /* Azul institucional */
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
         }
-        
-    .social_icon span:hover{
-        color: white;
-        cursor: pointer;
+        .login-card {
+            background-color: #ffffff;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            width: 100%;
+            max-width: 450px;
+            color: #000;
         }
-    
-    .social_icon{
-        margin-top: -50px;
-        margin-bottom: 15px;
+        .login-card img {
+            max-height: 90px;
         }
-    
-    .social_icon img{
-        width: 100px;
-        height: 100px;
-
-    }
-/* FORM RECUPERAR CUENTA*/
-.frm_recuperar{
-    max-height: 500px;
-    min-height: 400px;
-}
-
-.logo_registro{
-    width: 50px;
-    height: 50px;
-}
+        .title {
+            color: #061e3c; /* Azul institucional TJA */
+            font-weight: bold;
+            font-size: 24px;
+            margin-top: 15px;
+        }
+        .sub-title {
+            color: #c41c64; /* Rosa del lema institucional */
+            font-size: 16px;
+            font-weight: 500;
+        }
+        .btn-primary {
+            background-color: #c41c64;
+            border: none;
+        }
+        .btn-primary:hover {
+            background-color: #a61853;
+        }
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #ccc;
+        }

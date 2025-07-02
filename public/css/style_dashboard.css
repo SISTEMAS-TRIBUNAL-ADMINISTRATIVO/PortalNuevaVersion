@@ -1,0 +1,100 @@
+body.bg-gradient {
+    background: linear-gradient(to right, #061e3c, #0b2c5e);
+}
+
+.card h5 {
+    color: #061e3c;
+}
+
+.btn-primary {
+    background-color: #c41c64;
+    border: none;
+}
+
+.btn-primary:hover {
+    background-color: #a61853;
+}
+
+footer a img {
+    transition: transform 0.2s ease;
+}
+
+footer a img:hover {
+    transform: scale(1.1);
+}
+
+#Contenedor_Notificaciones {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 cartas por fila */
+  gap: 2rem; /* Espacio entre columnas y filas */
+  padding: 1rem;
+  width: auto;
+  border-radius: 10px;
+  max-height: 420px; /* Altura fija para que solo se visualice una fila completa */
+  overflow-y: auto; /* Activa el scroll vertical si hay más de una fila */
+}
+
+.card {
+  border-radius: 10px;
+  padding: 20px;
+  transition: transform 0.3s, box-shadow 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 400px; /* Ajusta para que las cartas coincidan con la altura del contenedor */
+  box-sizing: border-box;
+  overflow: hidden;
+}
+/* Imagen dentro de las tarjetas con un aspecto fijo */
+.card-img-top{
+  width: 150px; 
+  max-width: 300px; 
+  height: 200px; 
+  object-fit: cover; 
+  margin: 0 auto;>
+ 
+}
+
+/* Efecto hover para las cartas */
+.card:hover {
+  transform: translateY(-10px);
+}
+
+/* Estilo del título de la carta */
+.card-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Estilo del contenido de la carta */
+.card-content {
+  font-size: 1rem;
+  color: #555;
+  line-height: 1.5;
+  overflow: hidden;
+}
+
+.card-footer{
+  background-color: #2A3F54; 
+}
+
+
+
+/* Estilo de la barra de desplazamiento */
+#Contenedor_Notificaciones::-webkit-scrollbar {
+  width: 8px;
+}
+
+#Contenedor_Notificaciones::-webkit-scrollbar-thumb {
+  background-color: transparente;
+  border-radius: 4px;
+}
+
+/* El footer se mantiene en la parte inferior */
+footer {
+  flex-shrink: 0;
+  text-align: center;
+  padding: 1rem;
+}

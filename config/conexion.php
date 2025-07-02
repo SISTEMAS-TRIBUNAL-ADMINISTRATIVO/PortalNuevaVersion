@@ -4,12 +4,10 @@
         session_start();
     }
     
-
 class Conectar
 {
     protected $dbh;
-    protected $configMysql = "Local";
-    
+    public $configMysql = "Produccion";
     
     protected function Conexion($db)
     {
@@ -18,14 +16,6 @@ class Conectar
             {
                 switch ($db) 
                 {
-                    case "seguridad":
-                        $this->dbh = new PDO("mysql:host=localhost;dbname=bd_seguridad_sistemas", "root", "");
-                        break;
-
-                    case "helpdesk":
-                        $this->dbh = new PDO("mysql:host=localhost;dbname=andercode_helpdesk", "root", "");
-                        break;
-
                     case "siai":
                         $this->dbh = new PDO("mysql:host=localhost;dbname=siai", "root", "");
                         break;
@@ -35,7 +25,7 @@ class Conectar
                         break;
 
                     case "portal_empleado":
-                        $this->dbh = new PDO("mysql:host=localhost;dbname=portal_empleado", "root", "");
+                        $this->dbh = new PDO("mysql:host=localhost;dbname=portal_tjaech", "root", "");
                         break;
                 }
             } 
@@ -43,14 +33,6 @@ class Conectar
             {
                 switch ($db) 
                 {
-                    case "seguridad":
-                        $this->dbh = new PDO("mysql:host=192.168.1.225;dbname=bd_seguridad_sistemas", "user_helpdesk", "Systema$10");
-                        break;
-
-                    case "helpdesk":
-                        $this->dbh = new PDO("mysql:host=192.168.1.225;dbname=andercode_helpdesk", "user_helpdesk", "Systema$10");
-                        break;
-
                     case "siai":
                         $this->dbh = new PDO("mysql:host=192.168.1.225;dbname=siai", "SIAI_USER", "ChiapasInformatica$10");
                         break;
@@ -59,8 +41,12 @@ class Conectar
                         $this->dbh = new PDO("mysql:host=192.168.1.224;dbname=siga_administrativo", "siga", 'siga&%$admvo01');
                         break;
                     
-                        case "portal_empleado":
-                        $this->dbh = new PDO("mysql:host=192.168.1.224;dbname=portal_empleado", "siga", 'siga&%$admvo01');
+                    case "portal_empleado":
+                        $this->dbh = new PDO("mysql:host=192.168.1.225;dbname=portal_empleado", "SIAI_USER", 'ChiapasInformatica$10');
+                        break;
+
+                    case "declarachiapas":
+                        $this->dbh = new PDO("mysql:host=localhost;dbname=declara_chiapas", "root", '');
                         break;
                 }
             }
@@ -76,58 +62,6 @@ class Conectar
     public function set_names()
     {
         return $this->dbh->query("SET NAMES 'utf8mb4'");
-    }
-
-
-    public function rutaHelpdesk()
-    {
-        switch ($this->configMysql) 
-        {
-            case "Local":
-                    return "http://localhost/HelpDesk/";
-            break;
-
-            case "Produccion":
-                    return "http://192.168.1.121/HelpDesk/";
-            break;
-        }
-    }
-
-
-    public function rutaPortal()
-    {
-        switch ($this->configMysql) 
-        {
-            case "Local":
-                    return "http://localhost/PortalNuevaVersion/";
-            break;
-
-            case "Produccion":
-                    return "http://192.168.1.121/PortalNuevaVersion/";
-            break;
-        }
-    }
-
-    public function Migraciones()
-    {
-        switch ($this->configMysql) 
-        {
-            case "Local":
-                return [
-                    "dsn" => "mysql:host=localhost;dbname=portal_empleado;charset=utf8mb4",
-                    "user" => "root",
-                    "password" => ""
-                ];
-                break;
-
-            case "Produccion":
-                return [
-                    "dsn" => "mysql:host=192.168.1.224;dbname=portal_empleado;charset=utf8mb4",
-                    "user" => "siga",
-                    "password" => 'siga&%$admvo01'
-                ];
-                break;
-        }
     }
 }
 ?>

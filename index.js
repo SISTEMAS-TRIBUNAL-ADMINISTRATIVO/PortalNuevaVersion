@@ -13,14 +13,14 @@ function init()
             {
                 if (response.Validar == 1) 
                 {
-                    window.location.href = 'view/Home/home.php';
+                    window.location.href = 'view/Dashboard_Inicial/dashboard.php';
                 } 
                 else if (response.Validar == 0) 
                 {
                     Swal.fire({
                         icon: "error",
                         title: "Error...",
-                        text: "Usuario o contraseña incorrectos",
+                        text: "Correo electrónico o contraseña incorrectos",
                       });
                 } 
             }

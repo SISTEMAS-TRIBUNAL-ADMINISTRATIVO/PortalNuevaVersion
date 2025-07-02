@@ -2,8 +2,12 @@
     session_start();
     require_once("../config/conexion.php");
     require_once("../models/FormatosModel.php");
+    require_once("../models/PermisosExtrasModal.php");
+    require_once("../models/CatalogoModel.php");
        
     $Formato = new Formatos();
+    $Permisos_extras = new Permisos_extras();
+    $Catalogo = new Catalogo();
     header('Content-Type: application/json');
 
 
@@ -17,19 +21,49 @@ switch ($_GET["opcion"])
             foreach ($datos as $resultado) 
             {
                 $DatosDeRespuesta = array();
-                $DatosDeRespuesta[] = $resultado["id_formato"]; // Agregar el ID aquí
-                $DatosDeRespuesta[] = $resultado["fecha_formato"];
-                $DatosDeRespuesta[] = $resultado["nombre"];
-            
-        
-        // Base64 del archivo
-        $base64Archivo = htmlspecialchars($resultado["archivo_formato"]);
+                $DatosDeRespuesta[] = $resultado["nombre_formato"] ." ( ". $resultado["area_sube_formato"] ." )";
+                $DatosDeRespuesta[] = $resultado["fecha_subida"];
 
-        // Botón de descarga con un ID único
-        $DatosDeRespuesta[] = '<button id="download-btn-' . $resultado["id_formato"] . '" type="button" class="btn btn-inline btn-primary btn-sm ladda-button" data-base64="' . $base64Archivo . '" data-extencion="' . htmlspecialchars($resultado["extencion_formato"]) . '" data-nombre="' . htmlspecialchars($resultado["nombre"]) . '"><i class="fa fa-download"></i></button>';
+                if($_SESSION['id_rol']==3)
+                {
+                    $DatosDeRespuesta[] = '<a href="../../../controller/descargarFormatoController.php?id=' . $resultado["id_formato"] . '" class="btn btn-success"> Descargar </a>
 
+                                        <button class="btn btn-danger eliminar-formato" 
+                                                data-id="' . $resultado["id_formato"] . '" title="Eliminar">
+                                            <i class="bi bi-trash"></i> Eliminar
+                                        </button>';
+                }
+                else
+                {
+                    $datos = $Permisos_extras->Permisos_extras_Portal($_SESSION['Enlace']);
+                    $Respuesta["TienePermiso"] = 'NO';
 
-                $DatosDeRespuesta[] = $resultado["extencion_formato"];
+                    foreach($datos as $Resultado)
+                    {
+                        if($Resultado["fk_permiso_extra"]==1)
+                        {
+                            $Respuesta["TienePermiso"] = 'SI';
+                        }
+                    }
+
+                    if($Respuesta["TienePermiso"] == 'SI')
+                    {
+                        $DatosDeRespuesta[] = '<a href="../../../controller/descargarFormatoController.php?id=' . $resultado["id_formato"] . '" class="btn btn-success"> Descargar </a>
+
+                                        <button class="btn btn-danger eliminar-formato" 
+                                                data-id="' . $resultado["id_formato"] . '" title="Eliminar">
+                                            <i class="bi bi-trash"></i> Eliminar
+                                        </button>';
+                    }
+                    else
+                    {
+                        $DatosDeRespuesta[] = '<a href="data:'.$resultado["tipo_archivo"].';
+                                        base64,'.base64_encode($resultado["archivo_formato"]).'" 
+                                        download="'.$resultado["nombre_archivo"].'">
+                                        <button class="btn btn-success">Descargar</button></a>';
+                    }
+                }
+
                 $data[] = $DatosDeRespuesta;
             }
                 
@@ -44,56 +78,45 @@ switch ($_GET["opcion"])
             echo json_encode($results);
         break;
         
-        case "AgregarFormato":
-            // Obtiene la extensión del formato
-            $extencion_formato = $_POST['extencion_formato'];
-            
-            // Guarda el archivo en la base de datos
-            $datos = $Formato->AgregarFormato($_POST["fecha_formato"], $_POST["nombre"], $_POST["archivo_formato"], $extencion_formato);
-            
-            // Verifica si se guardó correctamente y devuelve la respuesta
-            echo json_encode(["success" => true]);
-        break;
-        
 
-        case "ActualizarCurso":
-            $datos = $Curso->ActualizarCurso(
-                $_POST['id_curso'],
-                $_POST['fecha_curso'],
-                $_POST['tema_curso'],
-                $_POST['ponente_curso'],
-                $_POST['archivo_curso'],
-                $_POST['descripcion_curso']
-            );
-            echo json_encode(["success" => $Curso]);
-        break;
+        case "guardaryeditar":
 
-        case "EliminarFormato":
-            $datos = $Formato->EliminarFormato($_POST['id_formato']);
-            echo json_encode(["success" => $datos]);
-        break;
+            $datos = $Catalogo->Cat_area_x_id( $_SESSION["fk_area_pertenece_siga "] );
 
-        case "Formatoxid":
-            $data = $Formato->FormatoXid($_POST['id_curso']);
-            $DatosDeRespuesta = array(); 
-        
-            foreach ($data as $resultado) {
-                $DatosDeRespuesta["id_formato"] = $resultado["id_formato"];
-                $DatosDeRespuesta["fecha_formato"] = $resultado["fecha_formato"];
-                $DatosDeRespuesta["nombre"] = $resultado["nombre"];
-        
-                // Pasar el archivo PDF como string base64
-                $DatosDeRespuesta["archivo_formato"] = htmlspecialchars($resultado["archivo_formato"]); // Codificar a Base64
-        
-                $DatosDeRespuesta["extencion_formato"] = $resultado["extencion_formato"];
+            foreach($datos as $Resultado)
+            {
+                $area = $Resultado["ads_descripcion"];
             }
-        
-            echo json_encode($DatosDeRespuesta);
+
+             if(empty($_POST["id_formato"]))
+             {
+                $archivo = $_FILES["archivo_formato"];
+                $nombreArchivo = $archivo["name"];
+                $tipoArchivo = $archivo["type"];
+                $contenidoArchivo = file_get_contents($archivo["tmp_name"]);
+                $Formato->AgregarFormato($_POST["nombreFormato"], $nombreArchivo, $tipoArchivo, $contenidoArchivo, $area);
+             }
+             else
+             {
+                $Formato->ActualizarFormato($_POST["id_formato"], $_POST["fecha_formato"], $_POST["nombre"], $_POST["archivo_formato"], $_POST["extencion_formato"], $area);
+             }
+
+             echo json_encode([
+                                "status" => "success",
+                                "message" => "Formato guardado correctamente."
+                            ]);
+
         break;
-        
-        
-        
-        
+
+        case "eliminar":
+            $id = $_POST["id_formato"];
+            $resultado = $Formato->EliminarFormato($id);
+            
+            echo json_encode([
+                                "status" => "success",
+                                "message" => "Formato guardado correctamente."
+                            ]);
+        break;
 
 
     }

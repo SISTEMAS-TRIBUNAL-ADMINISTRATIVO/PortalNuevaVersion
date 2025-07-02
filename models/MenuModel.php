@@ -3,7 +3,7 @@
     {
         public function get_permisosPadre($Enlace)
         {
-            $conectar= parent::conexion("seguridad");
+            $conectar= parent::conexion("portal_empleado");
             parent::set_names();
 
 
@@ -29,7 +29,7 @@
 
         public function get_permisosHijos($IdPadre, $Enlace)
         {
-            $conectar= parent::conexion("seguridad");
+            $conectar= parent::conexion("portal_empleado");
             parent::set_names();
 
 
