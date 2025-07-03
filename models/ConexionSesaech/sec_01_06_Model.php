@@ -1,6 +1,7 @@
 <?php
     class sec_01_06 extends Conectar
     {
+
         public function DatosDeLaPareja($idDeclaracion)
         {
             $conectar = parent::conexion("declarachiapas");
@@ -35,28 +36,35 @@
             return $Resultado;
         }
 
-        
-        public function sec_01_06_ninguno($idDeclaracion)
+
+        public function DomicilioExtranjero($idDeclaracion)
         {
             $conectar = parent::conexion("declarachiapas");
             parent::set_names();
 
-            $sql = "SELECT * FROM sec_01_06 WHERE id_declaracion=?";
+            $sql = " SELECT 
+                        domicilios.calle,
+                        domicilios.num_exterior,
+                        domicilios.num_interior,
+                        domicilios.colonia,
+                        c_municipio.clave AS Clave_municipio,
+                        c_municipio.nombre AS Municipio,
+                        c_estado.clave AS Clave_Estado,
+                        c_estado.nombre AS Estado,
+                        domicilios.codigo_postal,
+                        c_pais.nombre AS Pais
+                    FROM sec_01_06
+                    INNER JOIN domicilios ON domicilios.id = sec_01_06.id_domicilio
+                    INNER JOIN c_estado ON c_estado.id = domicilios.id_estado
+                    INNER JOIN c_municipio ON c_municipio.id = domicilios.id_municipio
+                    INNER JOIN c_pais ON c_pais.id = domicilios.id_pais
+                    WHERE sec_01_06.id_declaracion=? AND domicilios.id_pais <> 37";
 
             $stmt = $conectar->prepare($sql);
             $stmt->bindValue(1, $idDeclaracion);
             $stmt->execute();
             $Resultado = $stmt->fetchAll();
-
-            if (count($Resultado) > 0) 
-            {
-                return "false";
-            }
-            else
-            {
-                return "true";
-            }
-        }  
-
+            return $Resultado;
+        }
     }
 ?>

@@ -26,7 +26,8 @@
                         c_estado.nombre AS Estado,
                         domicilios.codigo_postal,
                         sec_01_04.observaciones,
-                        c_pais.nombre AS pais
+                        c_pais.nombre AS pais,
+                        c_pais.id AS IdPais
                     FROM sec_01_04
                     INNER JOIN padron ON padron.id = sec_01_04.id_padron
                     INNER JOIN c_nivel_gobierno ON c_nivel_gobierno.id = padron.id_nivel_gobierno

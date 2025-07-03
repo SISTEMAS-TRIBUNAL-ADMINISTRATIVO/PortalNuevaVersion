@@ -2,23 +2,23 @@
 //LSC. JOSE FERNANDO VALDES NANDUCA 
 //30/06/2025
 session_start();
-require_once("../config/conexion.php");
-require_once("../models/ConexionSesaech/DeclaracionesModel.php");
-require_once("../models/ConexionSesaech/sec_01_01.php");
-require_once("../models/ConexionSesaech/sec_01_02.php");
-require_once("../models/ConexionSesaech/sec_01_03.php");
-require_once("../models/ConexionSesaech/sec_01_04.php");
-require_once("../models/ConexionSesaech/sec_01_05.php");
-require_once("../models/ConexionSesaech/sec_01_06.php");
-require_once("../models/ConexionSesaech/sec_01_07.php");
-require_once("../models/ConexionSesaech/sec_01_08.php");
-require_once("../models/ConexionSesaech/sec_01_09.php");
-require_once("../models/ConexionSesaech/sec_01_10.php");
-require_once("../models/ConexionSesaech/sec_01_11.php");
-require_once("../models/ConexionSesaech/sec_01_12.php");
-require_once("../models/ConexionSesaech/sec_01_13.php");
-require_once("../models/ConexionSesaech/sec_01_14.php");
-require_once("../models/ConexionSesaech/sec_01_15.php");
+require_once("../../config/conexion.php");
+require_once("../../models/ConexionSesaech/DeclaracionesModel.php");
+require_once("../../models/ConexionSesaech/sec_01_01.php");
+require_once("../../models/ConexionSesaech/sec_01_02.php");
+require_once("../../models/ConexionSesaech/sec_01_03.php");
+require_once("../../models/ConexionSesaech/sec_01_04.php");
+require_once("../../models/ConexionSesaech/sec_01_05.php");
+require_once("../../models/ConexionSesaech/sec_01_06.php");
+/*require_once("../../models/ConexionSesaech/sec_01_07.php");
+require_once("../../models/ConexionSesaech/sec_01_08.php");
+require_once("../../models/ConexionSesaech/sec_01_09.php");
+require_once("../../models/ConexionSesaech/sec_01_10.php");
+require_once("../../models/ConexionSesaech/sec_01_11.php");
+require_once("../../models/ConexionSesaech/sec_01_12.php");
+require_once("../../models/ConexionSesaech/sec_01_13.php");
+require_once("../../models/ConexionSesaech/sec_01_14.php");
+require_once("../../models/ConexionSesaech/sec_01_15.php");*/
 
 
 
@@ -27,10 +27,10 @@ $sec_01_01 = new sec_01_01();
 $sec_01_02 = new sec_01_02();
 $sec_01_03 = new sec_01_03();
 $sec_01_04 = new sec_01_04();
-$sec_01_04_otros_empleos = new sec_01_04_otros_empleos();
+//$sec_01_04_otros_empleos = new sec_01_04_otros_empleos();
 $sec_01_05 = new sec_01_05();
 $sec_01_06 = new sec_01_06();
-$sec_01_07 = new sec_01_07();
+/*$sec_01_07 = new sec_01_07();
 $sec_01_08 = new sec_01_08();
 $sec_01_09 = new sec_01_09();
 $sec_01_10 = new sec_01_10();
@@ -40,9 +40,102 @@ $sec_01_13 = new sec_01_13();
 $sec_01_14 = new sec_01_14();
 $sec_01_15 = new sec_01_15();
 
-$sec_02_01 = new sec_02_01();
+$sec_02_01 = new sec_02_01();*/
 
 $JsonReturn = '';
+
+
+
+
+
+
+function obtenerMetadata($datosDeclaracion, $tipoDeclaracionTexto)
+{
+    return [
+        "id_organismo" => 74,
+        "organismo" => "TRIBUNAL DE JUSTICIA ADMINISTRATIVA DEL ESTADO DE CHIAPAS",
+        "formato" => "COMPLETA",
+        "tipo" => mb_strtoupper($tipoDeclaracionTexto, 'UTF-8'),
+        "fechaPresentacion" => $datosDeclaracion["fecha_fin"],  // ejemplo: "2025-06-30"
+        "anio" => intval($datosDeclaracion["anio_anual"]),
+        "actualizacionConflictoInteres" => false
+    ];
+}
+
+
+function obtenerDatosGenerales($datosGenerales, $datosRegimenMatrimonial = [])
+{
+    if (!is_array($datosGenerales) || count($datosGenerales) === 0) {
+        return [];
+    }
+
+    $datos = $datosGenerales[0]; // primer registro
+
+    return [
+        "nombre" => $datos["nombre"],
+        "primerApellido" => $datos["apellido1"],
+        "segundoApellido" => $datos["apellido2"],
+        "curp" => $datos["curp"],
+        "rfc" => [
+            "rfc" => $datos["rfc"],
+            "homoClave" => $datos["homoclave"]
+        ],
+        "correoElectronico" => [
+            "institucional" => $datos["correo_institucional"],
+            "personal" => $datos["correo_personal"]
+        ],
+        "telefono" => [
+            "casa" => "",  // si no tienes dato, déjalo vacío
+            "celularPersonal" => $datos["telefono_celular"]
+        ],
+        "situacionPersonalEstadoCivil" => [
+            "clave" => $datos["Estado_civil_clave"],
+            "valor" => $datos["Estado_civil"]
+        ],
+        "regimenMatrimonial" => [
+            "clave" => $datosRegimenMatrimonial["Regimen_matrimonial_clave"] ?? "",
+            "valor" => $datosRegimenMatrimonial["RegimenMatrominial"] ?? ""
+        ],
+        "paisNacimiento" => $datos["Pais_Nacimiento"],
+        "nacionalidad" => $datos["Pais_Nacionalidad"],
+        "aclaracionesObservaciones" => $datos["observaciones"] ?? ""
+    ];
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -51,7 +144,9 @@ switch ($_GET["opcion"])
     case "Inicial":
 
         //SECCIÓN METADATA
-        $DatosDeclaracion = $Declaraciones->DetallesXid($_POST['Id']);
+        //$DatosDeclaracion = $Declaraciones->DetallesXid($_POST['Id']);
+        $DatosDeclaracion = $Declaraciones->DetallesXid(652079);
+
         $JsonReturn .= '{
                             "metadata": {
                                 "id_organismo": 74,
@@ -65,42 +160,45 @@ switch ($_GET["opcion"])
 
 
         //SECCIÓN 01_01 DATOS GENERALES
-        $sec_01_01 = $sec_01_01->DatosGenerales($DatosDeclaracion[0]['id']);
+        $sec_01_01_DatosGenerales = $sec_01_01->DatosGenerales($DatosDeclaracion[0]['id']);
+        $sec_01_01_Regimen_matrimonial = $sec_01_01->RegimenMatrimonial($DatosDeclaracion[0]['id']);
+
         $JsonReturn .='"declaracion": {
                             "situacionPatrimonial": {
                                 "datosGenerales": {
-                                    "nombre": "'.$sec_01_01[0]['nombre'].'",
-                                    "primerApellido": "'.$sec_01_01[0]['apellido1'].'",
-                                    "segundoApellido": "'.$sec_01_01[0]['apellido2'].'",
-                                    "curp": "'.$sec_01_01[0]['curp'].'",
+                                    "nombre": "'.$sec_01_01_DatosGenerales[0]['nombre'].'",
+                                    "primerApellido": "'.$sec_01_01_DatosGenerales[0]['ApellidoUno'].'",
+                                    "segundoApellido": "'.$sec_01_01_DatosGenerales[0]['ApellidoDos'].'",
+                                    "curp": "'.$sec_01_01_DatosGenerales[0]['curp'].'",
                                     "rfc": {
-                                        "rfc": "'.$sec_01_01[0]['rfc'].'",
-                                        "homoClave": "'.$sec_01_01[0]['homoclave'].'"
+                                        "rfc": "'.$sec_01_01_DatosGenerales[0]['rfc'].'",
+                                        "homoClave": "'.$sec_01_01_DatosGenerales[0]['homoclave'].'"
                                     },
                                     "correoElectronico": {
-                                        "institucional": "'.$sec_01_01[0]['correo_institucional'].'",
-                                        "personal": "'.$sec_01_01[0]['correo_personal'].'"
+                                        "institucional": "'.$sec_01_01_DatosGenerales[0]['correo_institucional'].'",
+                                        "personal": "'.$sec_01_01_DatosGenerales[0]['correo_personal'].'"
                                     },
                                     "telefono": {
                                         "casa": "",
-                                        "celularPersonal": "'.$sec_01_01[0]['telefono_celular'].'"
+                                        "celularPersonal": "'.$sec_01_01_DatosGenerales[0]['telefono_celular'].'"
                                     },
                                     "situacionPersonalEstadoCivil": {
-                                        "clave": "'.$sec_01_01[0]['Estado_civil_clave'].'",
-                                        "valor": "'.$sec_01_01[0]['Estado_civil'].'"
+                                        "clave": "'.$sec_01_01_DatosGenerales[0]['Estado_civil_clave'].'",
+                                        "valor": "'.$sec_01_01_DatosGenerales[0]['Estado_civil'].'"
                                     },
                                     "regimenMatrimonial": {
-                                        "clave": "'.$sec_01_01[0]['Regimen_matrimonial_clave'].'",
-                                        "valor": "'.$sec_01_01[0]['RegimenMatrominial'].'"
+                                        "clave": "'.$sec_01_01_Regimen_matrimonial['Regimen_matrimonial_clave'].'",
+                                        "valor": "'.$sec_01_01_Regimen_matrimonial['RegimenMatrominial'].'"
                                     },
-                                    "paisNacimiento": "'.$sec_01_01[0]['Pais_Nacimiento'].'",
-                                    "nacionalidad": "'.$sec_01_01[0]['Pais_Nacionalidad'].'",
-                                    "aclaracionesObservaciones": "'.$sec_01_01[0]['observaciones'].'"
+                                    "paisNacimiento": "'.$sec_01_01_DatosGenerales[0]['Pais_Nacimiento'].'",
+                                    "nacionalidad": "'.$sec_01_01_DatosGenerales[0]['Pais_Nacionalidad'].'",
+                                    "aclaracionesObservaciones": "'.$sec_01_01_DatosGenerales[0]['observaciones'].'"
                                 },';
 
 
         //SECCIÓN 01_02 DOMICILIO DEL DECLARANTE
         $sec_01_02 = $sec_01_02->DatosDelDomicilionDeclarante($DatosDeclaracion[0]['id']);
+
         $JsonReturn .= '"domicilioDeclarante": {
                             "domicilioMexico": {
                                 "calle": "'.$sec_01_02[0]['calle'].'",
@@ -123,7 +221,7 @@ switch ($_GET["opcion"])
                                 "numeroInterior": "",
                                 "ciudadLocalidad": "",
                                 "estadoProvincia": "",
-                                "pais": "MX",
+                                "pais": "",
                                 "codigoPostal": ""
                             },
                             "aclaracionesObservaciones": "'.$sec_01_02[0]['observaciones'].'",
@@ -132,66 +230,70 @@ switch ($_GET["opcion"])
 
 
         //SECCIÓN 01_03 DATOS CURRICULAR
-        $sec_01_03 = $sec_01_03->datosCurriculares($DatosDeclaracion[0]['id']);
+        $sec_01_03_Curricular = $sec_01_03->datosCurriculares($DatosDeclaracion[0]['id']);
+        $sec_01_03_Observaciones = '';
+
         $JsonReturn .= '"datosCurricularesDeclarante": {
                             "ninguno": '.$sec_01_03->sec_01_03_ninguno($DatosDeclaracion[0]['id']).',
                             "escolaridad": [';
 
-                            foreach($sec_01_03 as $sec_01_03_res)
+                            foreach($sec_01_03_Curricular as $sec_01_03_res)
                             {
                                 $JsonReturn .= '
                                             {
                                                 "tipoOperacion": "AGREGAR",
                                                 "nivel": {
-                                                    "clave": "'.$sec_01_03_res['Clave_Grado'].'",
-                                                    "valor": "'.$sec_01_03_res['Grado_academico'].'"
+                                                    "clave": "'.$sec_01_03_Curricular['Clave_Grado'].'",
+                                                    "valor": "'.$sec_01_03_Curricular['Grado_academico'].'"
                                                 },
                                                 "institucionEducativa": {
-                                                    "nombre": "'.$sec_01_03_res['institucion_educativa'].'",
-                                                    "ubicacion": "'.$sec_01_03_res['Clave_pais'].'"
+                                                    "nombre": "'.$sec_01_03_Curricular['institucion_educativa'].'",
+                                                    "ubicacion": "'.$sec_01_03_Curricular['Clave_pais'].'"
                                                 },
-                                                "carreraAreaConocimiento": "'.$sec_01_03_res['carrera'].'",
-                                                "estatus": "'.$sec_01_03_res['Estatus_academico'].'",
-                                                "documentoObtenido": "'.$sec_01_03_res['Documento_obtenido'].'",
-                                                "fechaObtencion": "'.$sec_01_03_res['fecha_obtencion_documento'].'"
+                                                "carreraAreaConocimiento": "'.$sec_01_03_Curricular['carrera'].'",
+                                                "estatus": "'.$sec_01_03_Curricular['Estatus_academico'].'",
+                                                "documentoObtenido": "'.$sec_01_03_Curricular['Documento_obtenido'].'",
+                                                "fechaObtencion": "'.$sec_01_03_Curricular['fecha_obtencion_documento'].'"
                                             }';
+                                $sec_01_03_Observaciones .= $sec_01_03_Curricular['fecha_obtencion_documento'];
                             }
                             $JsonReturn.= '],
-                            "aclaracionesObservaciones": "'.$sec_01_03[0]['observaciones'].'"
+                            "aclaracionesObservaciones": "'.$sec_01_03_Observaciones.'"
                         },';
 
 
         //SECCIÓN 01_04 DATOS DEL CARGO O COMISIÓN PREGUNTAR POR LOS OTROS TRABAJOS
-        $sec_01_04 = $sec_01_04->DatosDelCargo($DatosDeclaracion[0]['id']);
+        $sec_01_04_Cargo_Comision = $sec_01_04->DatosDelCargo($DatosDeclaracion[0]['id']);
+
         $JsonReturn .= '"datosEmpleoCargoComision": {
                             "tipoOperacion": "AGREGAR",
-                            "nivelOrdenGobierno": "'.$sec_01_04[0]['nivelOrdenGobierno'].'",
-                            "ambitoPublico": "'.$sec_01_04[0]['ambitoPublico'].'",
-                            "nombreEntePublico": "'.$sec_01_04[0]['nombreEntePublico'].'",
-                            "areaAdscripcion": "'.$sec_01_04[0]['areaAdscripcion'].'",
-                            "empleoCargoComision": "'.$sec_01_04[0]['empleoCargoComision'].'",
-                            "contratadoPorHonorarios": '.$sec_01_04[0]['contratadoPorHonorarios'].',
-                            "nivelEmpleoCargoComision": "'.$sec_01_04[0]['nivelEmpleoCargoComision'].'",
-                            "funcionPrincipal": "'.$sec_01_04->FuncionesPrincipales($sec_01_04[0]['id_padron']).'",
-                            "fechaTomaPosesion": "'.$sec_01_04[0]['fechaTomaPosesion'].'",
+                            "nivelOrdenGobierno": "'.$sec_01_04_Cargo_Comision[0]['nivelOrdenGobierno'].'",
+                            "ambitoPublico": "'.$sec_01_04_Cargo_Comision[0]['ambitoPublico'].'",
+                            "nombreEntePublico": "'.$sec_01_04_Cargo_Comision[0]['nombreEntePublico'].'",
+                            "areaAdscripcion": "'.$sec_01_04_Cargo_Comision[0]['areaAdscripcion'].'",
+                            "empleoCargoComision": "'.$sec_01_04_Cargo_Comision[0]['empleoCargoComision'].'",
+                            "contratadoPorHonorarios": '.$sec_01_04_Cargo_Comision[0]['contratadoPorHonorarios'].',
+                            "nivelEmpleoCargoComision": "'.$sec_01_04_Cargo_Comision[0]['nivelEmpleoCargoComision'].'",
+                            "funcionPrincipal": "'.$sec_01_04->FuncionesPrincipales($sec_01_04_Cargo_Comision[0]['id_padron']).'",
+                            "fechaTomaPosesion": "'.$sec_01_04_Cargo_Comision[0]['fechaTomaPosesion'].'",
                             "telefonoOficina": {
                                 "telefono": "",
                                 "extension": ""
                             },
                             "domicilioMexico": {
-                                "calle": "'.$sec_01_04[0]['calle'].'",
-                                "numeroExterior": "'.$sec_01_04[0]['num_exterior'].'",
-                                "numeroInterior": "'.$sec_01_04[0]['num_interior'].'",
-                                "coloniaLocalidad": "'.$sec_01_04[0]['colonia'].'",
+                                "calle": "'.$sec_01_04_Cargo_Comision[0]['calle'].'",
+                                "numeroExterior": "'.$sec_01_04_Cargo_Comision[0]['num_exterior'].'",
+                                "numeroInterior": "'.$sec_01_04_Cargo_Comision[0]['num_interior'].'",
+                                "coloniaLocalidad": "'.$sec_01_04_Cargo_Comision[0]['colonia'].'",
                                 "municipioAlcaldia": {
-                                    "clave": "'.$sec_01_04[0]['Clave_Municipio'].'",
-                                    "valor": "'.$sec_01_04[0]['Municipio'].'"
+                                    "clave": "'.$sec_01_04_Cargo_Comision[0]['Clave_Municipio'].'",
+                                    "valor": "'.$sec_01_04_Cargo_Comision[0]['Municipio'].'"
                                 },
                                 "entidadFederativa": {
-                                    "clave": "'.$sec_01_04[0]['Clave_Estado'].'",
-                                    "valor": "'.$sec_01_04[0]['Estado'].'"
+                                    "clave": "'.$sec_01_04_Cargo_Comision[0]['Clave_Estado'].'",
+                                    "valor": "'.$sec_01_04_Cargo_Comision[0]['Estado'].'"
                                 },
-                                "codigoPostal": "'.$sec_01_04[0]['codigo_postal'].'"
+                                "codigoPostal": "'.$sec_01_04_Cargo_Comision[0]['codigo_postal'].'"
                             },
                             "domicilioExtranjero": {
                                 "calle": "",
@@ -199,21 +301,23 @@ switch ($_GET["opcion"])
                                 "numeroInterior": "",
                                 "ciudadLocalidad": "",
                                 "estadoProvincia": "",
-                                "pais": "MX",
+                                "pais": "",
                                 "codigoPostal": ""
                             },
-                            "aclaracionesObservaciones": "'.$sec_01_04[0]['observaciones'].'",
-                            "domicilio": "'.$sec_01_04[0]['pais'].'"
+                            "aclaracionesObservaciones": "'.$sec_01_04_Cargo_Comision[0]['observaciones'].'",
+                            "domicilio": "'.$sec_01_04_Cargo_Comision[0]['pais'].'"
                         },';
 
 
         //SECCIÓN SEC_01_05 EXPERIENCIA LABORAL
-        $sec_01_05 = $sec_01_05->ExperianciaLaboral($DatosDeclaracion[0]['id']);
+        $sec_01_05_Laboral = $sec_01_05->ExperianciaLaboral($DatosDeclaracion[0]['id']);
+        $sec_01_05_Observaciones= '';
+
         $JsonReturn .= '"experienciaLaboral": {
                             "ninguno": '.$sec_01_05->sec_01_05_ninguno($DatosDeclaracion[0]['id']).',
                             "experiencia": [';
                             
-                            foreach($sec_01_05 as $sec_01_05_res)
+                            foreach($sec_01_05_Laboral as $sec_01_05_res)
                             {
                                 $JsonReturn .='
                                             {
@@ -232,55 +336,60 @@ switch ($_GET["opcion"])
                                                                 "fechaEgreso": "'.$sec_01_05_res['fecha_salida'].'",
                                                                 "ubicacion": "'.$sec_01_05_res['Clave_pais'].'"
                                             }';
+
+                                            $sec_01_05_Observaciones .= $sec_01_05_res['observaciones'];
                             }
                             $JsonReturn .='],
-                            "aclaracionesObservaciones": "'.$sec_01_05_res['observaciones'].'"
+                            "aclaracionesObservaciones": "'.$sec_01_03_Observaciones.'"
                         },';
 
 
         //SECCIÓN  SEC_01_06 DATOS DE LA PAREJA
-        $sec_01_06 = $sec_01_06->DatosDeLaPareja($DatosDeclaracion[0]['id']);
+        $sec_01_06_Pareja = $sec_01_06->DatosDeLaPareja($DatosDeclaracion[0]['id']);
+        $sec_01_06_Domicilio_Mexico = $sec_01_06->DomiciliosMexico($DatosDeclaracion[0]['id']);
+        $sec_01_06_Domicilio_Extranjero = $sec_01_06->DomicilioExtranjero($DatosDeclaracion[0]['id']);                    
+
         $JsonReturn .= '"datosPareja": {
                             "ninguno": '.$sec_01_06->sec_01_06_ninguno($DatosDeclaracion[0]['id']).',
                             "tipoOperacion": "AGREGAR",
-                            "nombre": "'.$sec_01_06[0]['nombre'].'",
-                            "primerApellido": "'.$sec_01_06[0]['apellido1'].'",
-                            "segundoApellido": "'.$sec_01_06[0]['apellido2'].'",
-                            "fechaNacimiento": "'.$sec_01_06[0]['fecha_nacimiento'].'",
-                            "rfc": "'.$sec_01_06[0]['rfc'].'",
-                            "relacionConDeclarante": "'.$sec_01_06[0]['relacionConDeclarante'].'",
-                            "ciudadanoExtranjero": '.$sec_01_06[0]['ciudadanoExtranjero'].',
-                            "curp": "'.$sec_01_06[0]['curp'].'",
-                            "esDependienteEconomico": '.$sec_01_06[0]['esDependienteEconomico'].',
-                            "habitaDomicilioDeclarante": '.$sec_01_06[0]['habitaDomicilioDeclarante'].',
-                            "lugarDondeReside": "'.$sec_01_06[0]['lugarDondeReside'].'",
+                            "nombre": "'.$sec_01_06_Pareja[0]['nombre'].'",
+                            "primerApellido": "'.$sec_01_06_Pareja[0]['apellido1'].'",
+                            "segundoApellido": "'.$sec_01_06_Pareja[0]['apellido2'].'",
+                            "fechaNacimiento": "'.$sec_01_06_Pareja[0]['fecha_nacimiento'].'",
+                            "rfc": "'.$sec_01_06_Pareja[0]['rfc'].'",
+                            "relacionConDeclarante": "'.$sec_01_06_Pareja[0]['relacionConDeclarante'].'",
+                            "ciudadanoExtranjero": '.$sec_01_06_Pareja[0]['ciudadanoExtranjero'].',
+                            "curp": "'.$sec_01_06_Pareja[0]['curp'].'",
+                            "esDependienteEconomico": '.$sec_01_06_Pareja[0]['esDependienteEconomico'].',
+                            "habitaDomicilioDeclarante": '.$sec_01_06_Pareja[0]['habitaDomicilioDeclarante'].',
+                            "lugarDondeReside": "'.$sec_01_06_Pareja[0]['lugarDondeReside'].'",
                             "domicilioMexico": {
-                                "calle": "",
-                                "numeroExterior": "",
-                                "numeroInterior": "",
-                                "coloniaLocalidad": "",
+                                "calle": "'.$sec_01_06_Domicilio_Mexico[0]['calle'].'",
+                                "numeroExterior": "'.$sec_01_06_Domicilio_Mexico[0]['num_exterior'].'",
+                                "numeroInterior": "'.$sec_01_06_Domicilio_Mexico[0]['num_interior'].'",
+                                "coloniaLocalidad": "'.$sec_01_06_Domicilio_Mexico[0]['colonia'].'",
                                 "municipioAlcaldia": {
-                                    "clave": "101",
-                                    "valor": "Tuxtla Gutiérrez"
+                                    "clave": "'.$sec_01_06_Domicilio_Mexico[0]['Clave_municipio'].'",
+                                    "valor": "'.$sec_01_06_Domicilio_Mexico[0]['Municipio'].'"
                                 },
                                 "entidadFederativa": {
-                                    "clave": "07",
-                                    "valor": "Chiapas"
+                                    "clave": "'.$sec_01_06_Domicilio_Mexico[0]['Clave_Estado'].'",
+                                    "valor": "'.$sec_01_06_Domicilio_Mexico[0]['Estado'].'"
                                 },
-                                "codigoPostal": "XXXXX"
+                                "codigoPostal": "'.$sec_01_06_Domicilio_Mexico[0]['codigo_postal'].'"
                             },
                             "domicilioExtranjero": {
-                                "calle": "",
-                                "numeroExterior": "",
-                                "numeroInterior": "",
-                                "ciudadLocalidad": "",
-                                "estadoProvincia": "",
-                                "pais": "MX",
-                                "codigoPostal": ""
+                                "calle": "'.$sec_01_06_Domicilio_Extranjero['calle'].'",
+                                "numeroExterior": "'.$sec_01_06_Domicilio_Extranjero['num_exterior'].'",
+                                "numeroInterior": "'.$sec_01_06_Domicilio_Extranjero['num_interior'].'",
+                                "ciudadLocalidad": "'.$sec_01_06_Domicilio_Extranjero['Municipio'].'",
+                                "estadoProvincia": "'.$sec_01_06_Domicilio_Extranjero['Estado'].'",
+                                "pais": "'.$sec_01_06_Domicilio_Extranjero['Pais'].'",
+                                "codigoPostal": "'.$sec_01_06_Domicilio_Extranjero['codigo_postal'].'"
                             },
                             "actividadLaboral": {
-                                "clave": "'.$sec_01_06[0]['Clave_ActividadLAboral'].'",
-                                "valor": "'.$sec_01_06[0]['AmbitoLaboral'].'"
+                                "clave": "'.$sec_01_06_Pareja[0]['Clave_ActividadLAboral'].'",
+                                "valor": "'.$sec_01_06_Pareja[0]['AmbitoLaboral'].'"
                             },
                             "actividadLaboralSectorPublico": {
                                 "nivelOrdenGobierno": "",
@@ -308,9 +417,9 @@ switch ($_GET["opcion"])
                                     "valor": 0,
                                     "moneda": "MXN"
                                 },
-                                "proveedorContratistaGobierno": '.$sec_01_06[0]['proveedorContratistaGobierno'].'
+                                "proveedorContratistaGobierno": '.$sec_01_06_Pareja[0]['proveedorContratistaGobierno'].'
                             },
-                            "aclaracionesObservaciones": "'.$sec_01_06[0]['observaciones'].'"
+                            "aclaracionesObservaciones": "'.$sec_01_06_Pareja[0]['observaciones'].'"
                         },';
 
 
@@ -1187,5 +1296,8 @@ switch ($_GET["opcion"])
                     }
                 }';
 
+           //echo json_encode($JsonReturn);
+           echo $JsonReturn;
+        break;
 }
 ?>

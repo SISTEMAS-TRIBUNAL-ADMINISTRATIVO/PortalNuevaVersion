@@ -28,29 +28,6 @@
             $stmt->execute();
             $Resultado = $stmt->fetchAll();
             return $Resultado;
-        }
-
-        public function sec_01_03_ninguno($idDeclaracion)
-        {
-            $conectar = parent::conexion("declarachiapas");
-            parent::set_names();
-
-            $sql = "SELECT * FROM sec_01_03 WHERE id_declaracion=?";
-
-            $stmt = $conectar->prepare($sql);
-            $stmt->bindValue(1, $idDeclaracion);
-            $stmt->execute();
-            $Resultado = $stmt->fetchAll();
-
-            if (count($Resultado) > 0) 
-            {
-                return "false";
-            }
-            else
-            {
-                return "true";
-            }
-        }    
-        
+        }      
     }
 ?>
