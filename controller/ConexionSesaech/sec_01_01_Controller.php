@@ -2,7 +2,7 @@
     require_once("../../models/sec_01_01_Model.php");
 
     
-    function DatosGenerales($IdDeclaracion)
+    function obtenerDatosGenerales($IdDeclaracion)
     {
         $sec_01_01 = new sec_01_01();
         $sec_01_01_general = $sec_01_01->DatosGenerales($IdDeclaracion);

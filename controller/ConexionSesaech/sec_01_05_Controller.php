@@ -2,51 +2,48 @@
     require_once("../../models/sec_01_05_Model.php");
 
     
-    function ExperianciaLaboral($IdDeclaracion)
+    function obtenerExperienciaLaboral($IdDeclaracion)
     {
         $sec_01_05 = new sec_01_05();
         $sec_01_05_ExperianciaLaboral = $sec_01_05->ExperianciaLaboral($IdDeclaracion);
-
-        $resultado = [];
+        $sec_01_05_Ninguno = true;
         $Observaciones = "";
 
 
         if (is_array($sec_01_05_ExperianciaLaboral) && count($sec_01_05_ExperianciaLaboral) > 0) 
         {
-            foreach ($sec_01_05_ExperianciaLaboral as $item) 
-            {
-                $resultado[] = 
-                [
-                    "Clave_ambito" => $item["Clave_ambito"],
-                    "Ambito" => $item["Ambito"],
-                    "nivelOrdenGobierno" => $item["nivelOrdenGobierno"],
-                    "ambitoPublico" => $item["ambitoPublico"],
-                    "nombreEntePublico" => $item["nombreEntePublico"],
-                    "area_adscripcion" => $item["area_adscripcion"],
-                    "cargo_puesto" => $item["cargo_puesto"],
-                    "fecha_ingreso" => $item["fecha_ingreso"],
-                    "fecha_salida" => $item["fecha_salida"],
-                    "Clave_pais" => $item["Clave_pais"]
-                ];
-
-                $Observaciones .= $item["observaciones"] . ", ";
-            }
-
-            return 
-            [
-                "ninguno" => false,
-                "laboral" => $resultado,
-                "Observaciones" => $Observaciones
-            ];
+            $sec_01_05_Ninguno = false;
         }
-        else
+
+        $experiencia = [];
+
+        foreach ($sec_01_05_ExperianciaLaboral as $row) 
         {
-            return
+            $experiencia[] = 
             [
-                "ninguno" => true,
-                "laboral" => [],
-                "Observaciones" => $Observaciones
+                "tipoOperacion" => "AGREGAR",
+                "ambitoSector" => [
+                    "clave" => $row["Clave_ambito"] ?? "",
+                    "valor" => $row["Ambito"] ?? ""
+                ],
+                "nivelOrdenGobierno" => $row["nivelOrdenGobierno"] ?? "",
+                "ambitoPublico" => $row["ambitoPublico"] ?? "",
+                "nombreEntePublico" => $row["nombreEntePublico"] ?? "",
+                "areaAdscripcion" => $row["area_adscripcion"] ?? "",
+                "empleoCargoComision" => $row["cargo_puesto"] ?? "",
+                "funcionPrincipal" => $sec_01_05->FuncionesPrincipales( $row["id"] ) ?? "",
+                "fechaIngreso" => $row["fecha_ingreso"] ?? "",
+                "fechaEgreso" => $row["fecha_salida"] ?? "",
+                "ubicacion" => $row["Clave_pais"] ?? "MX"
             ];
+
+            $Observaciones .= $row["observaciones"] . ", ";
         }
+
+        return [
+            "ninguno" => $sec_01_05_Ninguno,
+            "experiencia" => $experiencia,
+            "aclaracionesObservaciones" => $Observaciones
+        ];
 }
 ?>

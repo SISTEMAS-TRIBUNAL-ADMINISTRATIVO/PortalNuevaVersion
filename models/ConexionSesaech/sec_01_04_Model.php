@@ -49,7 +49,7 @@
         }
 
        public function FuncionesPrincipales($IdPadron)
-        {
+       {
             $conectar = parent::conexion("declarachiapas");
             parent::set_names();
 
@@ -88,6 +88,13 @@
             {
                 $descripcion_map.= $row['nombre'] . ", ";
             }
+
+            $sql = "SELECT otras_funciones FROM padron WHERE id = ?";
+            $stmt = $conectar->prepare($sql);
+            $stmt->bindValue(1, $IdPadron);
+            $stmt->execute();
+            $Resultado = $stmt->fetchAll();
+            $descripcion_map = $Resultado[0]["otras_funciones"];
 
             return $descripcion_map;
         }

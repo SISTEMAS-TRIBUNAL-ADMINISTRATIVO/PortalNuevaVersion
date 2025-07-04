@@ -2,147 +2,107 @@
     require_once("../../models/sec_01_06_Model.php");
 
     
-    function DatosDeLaPareja($IdDeclaracion)
+    function obtenerDatosPareja($IdDeclaracion)
     {
         $sec_01_06 = new sec_01_06();
-        $sec_01_02_DatosDeLaPareja = $sec_01_06->DatosDeLaPareja($IdDeclaracion);
-        $_DatosDeLaPareja = [];
-        $_Domicilio_Mexico = [];
-        $_Domicilio_Extranjero = [];
+        $sec_01_06_DatosDeLaPareja = $sec_01_06->DatosDeLaPareja($IdDeclaracion);
+        $sec_01_06_Domicilio_Mexico = $sec_01_06->DatosDeLaPareja($IdDeclaracion);
+        $sec_01_06_Domicilio_Extranjero = $sec_01_06->DatosDeLaPareja($IdDeclaracion);
+        $sec_01_06_TrabajoPublico = $sec_01_06->TrabajoAmbitoPublico($IdDeclaracion);
+        $sec_01_06_TrabajoPrivado = $sec_01_06->TrabajoAmbitoPrivadoOtro($IdDeclaracion);
+        $sec_01_06_Ninguno = true;
 
 
-        $_DatosDeLaPareja[] = 
-         [
-            "nombre" => $sec_01_02_DatosDeLaPareja["nombre"],
-            "apellido1" => $sec_01_02_DatosDeLaPareja["apellido1"],
-            "apellido2" => $sec_01_02_DatosDeLaPareja["apellido2"],
-            "fecha_nacimiento" => $sec_01_02_DatosDeLaPareja["fecha_nacimiento"],
-            "rfc" => $sec_01_02_DatosDeLaPareja["rfc"],
-            "curp" => $sec_01_02_DatosDeLaPareja["curp"],
-            "relacionConDeclarante" => $sec_01_02_DatosDeLaPareja["relacionConDeclarante"],
-            "ciudadanoExtranjero" => $sec_01_02_DatosDeLaPareja["ciudadanoExtranjero"],
-            "esDependienteEconomico" => $sec_01_02_DatosDeLaPareja["esDependienteEconomico"],
-            "habitaDomicilioDeclarante" => $sec_01_02_DatosDeLaPareja["habitaDomicilioDeclarante"],
-            "apelllugarDondeResideido1" => $sec_01_02_DatosDeLaPareja["lugarDondeReside"],
-            "Clave_ActividadLAboral" => $sec_01_02_DatosDeLaPareja["Clave_ActividadLAboral"],
-            "AmbitoLaboral" => $sec_01_02_DatosDeLaPareja["AmbitoLaboral"],
-            "proveedorContratistaGobierno" => $sec_01_02_DatosDeLaPareja["proveedorContratistaGobierno"],
-            "observaciones" => $sec_01_02_DatosDeLaPareja["observaciones"],
-            "apellido1" => $sec_01_02_DatosDeLaPareja["apellido1"]
-        ];
-
-
-
-
-
-
-
-
-/*
-
-        $_DatosDelCargo = [];
-
-
-
-        //Datos generales del cargo
-        $_DatosDelCargo [] = 
-         [
-            "id_padron" => $sec_01_02_DatosDelCargo["id_padron"],
-            "nivelOrdenGobierno" => $sec_01_02_DatosDelCargo["calnivelOrdenGobiernole"],
-            "ambitoPublico" => $sec_01_02_DatosDelCargo["ambitoPublico"],
-            "nombreEntePublico" => $sec_01_02_DatosDelCargo["nombreEntePublico"],
-            "areaAdscripcion" => $sec_01_02_DatosDelCargo["areaAdscripcion"],
-            "empleoCargoComision" => $sec_01_02_DatosDelCargo["empleoCargoComision"],
-            "contratadoPorHonorarios" => $sec_01_02_DatosDelCargo["contratadoPorHonorarios"],
-            "nivelEmpleoCargoComision" => $sec_01_02_DatosDelCargo["nivelEmpleoCargoComision"],
-            "fechaTomaPosesion" => $sec_01_02_DatosDelCargo["fechaTomaPosesion"],
-            "observaciones" => $sec_01_02_DatosDelCargo["observaciones"],
-            "funciones_principales" => $sec_01_02_DatosDelCargo["funciones_principales"]
-         ];
-
-
-        //Si es Mexicano
-        if($sec_01_02_DatosDelCargo["IdPais"] == 37)
+        if (is_array($sec_01_06_DatosDeLaPareja) && count($sec_01_06_DatosDeLaPareja) > 0) 
         {
-            $_Domicilio_Mexico[] = 
-            [
-                //Domicilio México Con datos
-                "calle_Mexico" => $sec_01_02_DatosDelCargo["calle"],
-                "num_exterior_Mexico" => $sec_01_02_DatosDelCargo["num_exterior"],
-                "num_interior_Mexico" => $sec_01_02_DatosDelCargo["num_interior"],
-                "colonia_Mexico" => $sec_01_02_DatosDelCargo["colonia"],
-                "Clave_municipio_Mexico" => $sec_01_02_DatosDelCargo["Clave_municipio"],
-                "Municipio_Mexico" => $sec_01_02_DatosDelCargo["Municipio"],
-                "Clave_Estado_Mexico" => $sec_01_02_DatosDelCargo["Clave_Estado"],
-                "Estado_Mexico" => $sec_01_02_DatosDelCargo["Estado"],
-                "codigo_postal_Mexico" => $sec_01_02_DatosDelCargo["codigo_postal"],
-                "pais_Mexico" => $sec_01_02_DatosDelCargo["pais"],
-
-            ];
-
-            $_Domicilio_Extranjero[] = 
-            [
-                //Domicilio Extranjero vacío 
-                "calle_Extranjero" => "",
-                "num_exterior_Extranjero" => "",
-                "num_interior_Extranjero" => "",
-                "colonia_Extranjero" => "",
-                "Clave_municipio_Extranjero" => "",
-                "Municipio_Extranjero" => "",
-                "Clave_Estado_Extranjero" => "",
-                "Estado_Extranjero" => "",
-                "codigo_postal_Extranjero" => "",
-                "Clave_pais_Extranjero" => "",
-
-            ];
-
-        }   
-
-        //Si es Extranjero
-        else
-        {
-            $_Domicilio_Mexico[] = 
-            [
-                 //Domicilio México vacío 
-                "calle_Mexico" => "",
-                "num_exterior_Mexico" =>"",
-                "num_interior_Mexico" => "",
-                "colonia_Mexico" => "",
-                "Clave_municipio_Mexico" => "",
-                "Municipio_Mexico" => "",
-                "Clave_Estado_Mexico" => "",
-                "Estado_Mexico" =>"",
-                "codigo_postal_Mexico" => "",
-                "pais_Mexico" => "",
-            ];
-
-            $_Domicilio_Extranjero[] = 
-            [
-                //Domicilio declarante Extranjero Con datos
-                "calle_Extranjero" => $sec_01_02_DatosDelCargo["calle"],
-                "num_exterior_Extranjero" => $sec_01_02_DatosDelCargo["num_exterior"],
-                "num_interior_Extranjero" => $sec_01_02_DatosDelCargo["num_interior"],
-                "colonia_Extranjero" => $sec_01_02_DatosDelCargo["colonia"],
-                "Clave_municipio_Extranjero" => $sec_01_02_DatosDelCargo["Clave_municipio"],
-                "Municipio_Extranjero" => $sec_01_02_DatosDelCargo["Municipio"],
-                "Clave_Estado_Extranjero" => $sec_01_02_DatosDelCargo["Clave_Estado"],
-                "Estado_Extranjero" => $sec_01_02_DatosDelCargo["Estado"],
-                "codigo_postal_Extranjero" => $sec_01_02_DatosDelCargo["codigo_postal"],
-                "pais_Extranjero" => $sec_01_02_DatosDelCargo["pais"],
-
-            ];
+            $sec_01_06_Ninguno = false;
         }
 
-        
-        return
-        [
-            "_DatosDelCargo" => $_DatosDelCargo,
-            "_Domicilio_Mexico" => $_Domicilio_Mexico,
-            "_Domicilio_Extranjero" => $_Domicilio_Extranjero
-        ];
-*/
-    }
 
+        return [
+            "ninguno" => $sec_01_06_Ninguno,
+            "tipoOperacion" => "AGREGAR",
+            "nombre" => $sec_01_06_DatosDeLaPareja["nombre"] ?? "",
+            "primerApellido" => $sec_01_06_DatosDeLaPareja["apellido1"] ?? "",
+            "segundoApellido" => $sec_01_06_DatosDeLaPareja["apellido2"] ?? "",
+            "fechaNacimiento" => $sec_01_06_DatosDeLaPareja["fecha_nacimiento"] ?? "",
+            "rfc" => $sec_01_06_DatosDeLaPareja["rfc"] ?? "",
+            "relacionConDeclarante" => $sec_01_06_DatosDeLaPareja["relacionConDeclarante"] ?? "",
+            "ciudadanoExtranjero" => $sec_01_06_DatosDeLaPareja["ciudadanoExtranjero"] ?? "",
+            "curp" => $sec_01_06_DatosDeLaPareja["curp"] ?? "",
+            "esDependienteEconomico" => $sec_01_06_DatosDeLaPareja["esDependienteEconomico"] ?? "",
+            "habitaDomicilioDeclarante" => $sec_01_06_DatosDeLaPareja["habitaDomicilioDeclarante"] ?? "",
+            "lugarDondeReside" => $sec_01_06_DatosDeLaPareja["lugarDondeReside"] ?? "",
+
+            // Domicilio México
+            "domicilioMexico" => [
+                "calle" => $sec_01_06_Domicilio_Mexico["calle"] ?? "",
+                "numeroExterior" => $sec_01_06_Domicilio_Mexico["num_exterior"] ?? "",
+                "numeroInterior" => $sec_01_06_Domicilio_Mexico["num_interior"] ?? "",
+                "coloniaLocalidad" => $sec_01_06_Domicilio_Mexico["colonia"] ?? "",
+                "municipioAlcaldia" => [
+                    "clave" => $sec_01_06_Domicilio_Mexico["Clave_municipio"] ?? "",
+                    "valor" => $sec_01_06_Domicilio_Mexico["Municipio"] ?? ""
+                ],
+                "entidadFederativa" => [
+                    "clave" => $sec_01_06_Domicilio_Mexico["Estado"] ?? "",
+                    "valor" => $sec_01_06_Domicilio_Mexico["Estado"] ?? ""
+                ],
+                "codigoPostal" => $sec_01_06_Domicilio_Mexico["codigo_postal"] ?? ""
+            ],
+
+            // Domicilio extranjero
+            "domicilioExtranjero" => [
+                "calle" => $sec_01_06_Domicilio_Extranjero["calle"] ?? "",
+                "numeroExterior" => $sec_01_06_Domicilio_Extranjero["num_exterior"] ?? "",
+                "numeroInterior" => $sec_01_06_Domicilio_Extranjero["num_interior"] ?? "",
+                "ciudadLocalidad" => $sec_01_06_Domicilio_Extranjero["Municipio"] ?? "",
+                "estadoProvincia" =>  $sec_01_06_Domicilio_Extranjero["Estado"] ?? "",
+                "pais" => $sec_01_06_Domicilio_Extranjero["pais"] ?? "",
+                "codigoPostal" => $sec_01_06_Domicilio_Extranjero["codigo_postal"] ?? ""
+            ],
+
+            // Actividad laboral general
+            "actividadLaboral" => [
+                "clave" => $datosPareja["Clave_ActividadLAboral"] ?? "",
+                "valor" => $datosPareja["AmbitoLaboral"] ?? ""
+            ],
+
+            // Sector público
+            "actividadLaboralSectorPublico" => [
+                "nivelOrdenGobierno" => $sec_01_06_TrabajoPublico["Nivel_Gobierno"] ?? "",
+                "ambitoPublico" => $sec_01_06_TrabajoPublico["Clave_Ambito"] ?? "",
+                "nombreEntePublico" => $sec_01_06_TrabajoPublico["nombreEntePublico"] ?? "",
+                "areaAdscripcion" => $sec_01_06_TrabajoPublico["area_adscripcion"] ?? "",
+                "empleoCargoComision" => $sec_01_06_TrabajoPublico["cargo_puesto"] ?? "",
+                "funcionPrincipal" =>  $sec_01_06->FuncionesPrincipales($sec_01_06_TrabajoPublico["id"]),
+                "salarioMensualNeto" => [
+                    "valor" => $sec_01_06_TrabajoPublico["salario_mensual"] ?? "",
+                    "moneda" => "MXN"
+                ],
+                "fechaIngreso" => $sec_01_06_TrabajoPublico["fecha_ingreso"] ?? ""
+            ],
+
+            // Sector privado/otro
+            "actividadLaboralSectorPrivadoOtro" => [
+                "nombreEmpresaSociedadAsociacion" => $sec_01_06_TrabajoPrivado["nombre_ente"] ?? "",
+                "empleoCargoComision" => $sec_01_06_TrabajoPrivado["cargo_puesto"] ?? "",
+                "rfc" => $sec_01_06_TrabajoPrivado["rfc_empresa"] ?? "",
+                "fechaIngreso" => $sec_01_06_TrabajoPrivado["fecha_ingreso"] ?? "",
+                "sector" => [
+                    "clave" => $sec_01_06_TrabajoPrivado["Clave_Sector"] ?? "",
+                    "valor" => $sec_01_06_TrabajoPrivado["Sector"] ?? ""
+                ],
+                "salarioMensualNeto" => [
+                    "valor" => $sec_01_06_TrabajoPrivado["salario_mensual"] ?? "",
+                    "moneda" => "MXN"
+                ],
+                "proveedorContratistaGobierno" => $sec_01_06_DatosDeLaPareja["proveedorContratistaGobierno"]
+            ],
+
+            "aclaracionesObservaciones" => $sec_01_06_DatosDeLaPareja["observaciones"] ?? ""
+        ];
+    }
 ?>
 
 

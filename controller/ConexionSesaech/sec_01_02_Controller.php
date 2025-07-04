@@ -2,7 +2,7 @@
     require_once("../../models/sec_01_02_Model.php");
 
     
-    function DomicilioDeclarante($IdDeclaracion)
+    function obtenerDatosDomicilioDeclarante($IdDeclaracion)
     {
         $sec_01_02 = new sec_01_02();
         $sec_01_02_Domicilio_Mexico = $sec_01_02->DomicilioMexico($IdDeclaracion);
